@@ -97,7 +97,7 @@ function Header() {
   return (
     <HeaderContainer>
       <Logo>
-        <Link to="/">SK E&C</Link>
+        <Link to="/"> (주)에스앤케이이엔지</Link>
       </Logo>
       
       <Nav className="desktop-nav">

@@ -230,7 +230,7 @@ function HumanResources() {
       
       <ContentSection>
         <SectionTitle>인재상</SectionTitle>
-        <p>SK E&C는 열정적이고 도전적인 인재, 창의적이고 혁신적인 사고를 가진 인재, 
+        <p>(주)에스앤케이이엔지는 열정적이고 도전적인 인재, 창의적이고 혁신적인 사고를 가진 인재, 
         전문성과 글로벌 역량을 갖춘 인재를 소중히 여깁니다.</p>
         
         <TalentSection>
@@ -274,7 +274,7 @@ function HumanResources() {
       
       <ContentSection>
         <SectionTitle>채용 프로세스</SectionTitle>
-        <p>SK E&C는 공정하고 투명한 채용 프로세스를 통해 우수한 인재를 선발하고 있습니다.</p>
+        <p>(주)에스앤케이이엔지는 공정하고 투명한 채용 프로세스를 통해 우수한 인재를 선발하고 있습니다.</p>
         
         <RecruitmentProcess>
           <ProcessSteps>
@@ -317,7 +317,7 @@ function HumanResources() {
       
       <ContentSection>
         <SectionTitle>복리후생</SectionTitle>
-        <p>SK E&C는 임직원들의 안정적인 생활과 자기계발을 지원하기 위해 다양한 복리후생 제도를 운영하고 있습니다.</p>
+        <p>(주)에스앤케이이엔지는 임직원들의 안정적인 생활과 자기계발을 지원하기 위해 다양한 복리후생 제도를 운영하고 있습니다.</p>
         
         <WelfareSection>
           <WelfareGrid>
@@ -385,7 +385,7 @@ function HumanResources() {
               <h3>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#0066cc">
                   <path d="M17.5 12C17.5 13.93 16.1 15.5 14.28 15.91L15 17H18V19H15V22H13V19H10V17H13L10 12.73C9.44 13.61 8.56 14.27 7.5 14.55V19.13L9.5 20.17L9.05 21.96L7.5 21.13L5.95 21.96L5.5 20.17L7.5 19.13V14.5C5.55 14 4 12.19 4 10C4 7.24 6.24 5 9 5C9.77 5 10.5 5.17 11.14 5.46L13.5 2L14.5 2.5L12.5 5.5C13.26 6.22 13.81 7.21 14 8.33L16.5 5L17.5 5.5L15.5 8.5C15.81 9.57 16 10.76 16 12H17.5M9 11C9.55 11 10 10.55 10 10C10 9.45 9.55 9 9 9C8.45 9 8 9.45 8 10C8 10.55 8.45 11 9 11Z" />
-                </svg>
+              </svg>
                 문화/레저
               </h3>
               <ul>

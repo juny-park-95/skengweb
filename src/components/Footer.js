@@ -55,7 +55,7 @@ function Footer() {
     <FooterContainer>
       <FooterContent>
         <FooterSection>
-          <FooterTitle>SK E&C</FooterTitle>
+          <FooterTitle>(주)에스앤케이이엔지</FooterTitle>
           <FooterLink href="#">회사소개</FooterLink>
           <FooterLink href="#">경영이념</FooterLink>
           <FooterLink href="#">연혁</FooterLink>
@@ -64,10 +64,10 @@ function Footer() {
         
         <FooterSection>
           <FooterTitle>사업영역</FooterTitle>
-          <FooterLink href="#">인프라</FooterLink>
-          <FooterLink href="#">건축/주택</FooterLink>
-          <FooterLink href="#">플랜트</FooterLink>
-          <FooterLink href="#">친환경 에너지</FooterLink>
+          <FooterLink href="#">주요 전기 기계 및 장비</FooterLink>
+          <FooterLink href="#">제어 시스템 및 전자 부품</FooterLink>
+          <FooterLink href="#">계측기기 및 시험 장비</FooterLink>
+          <FooterLink href="#">관련 기자재 및 부품</FooterLink>
         </FooterSection>
         
         <FooterSection>
@@ -87,8 +87,8 @@ function Footer() {
       </FooterContent>
       
       <FooterBottom>
-        <p>© {new Date().getFullYear()} SK E&C. All Rights Reserved.</p>
-        <p>서울특별시 종로구 인사동길 00 SK빌딩</p>
+        <p>&copy; {new Date().getFullYear()} (주)에스앤케이이엔지. All Rights Reserved.</p>
+        <p>경기 안산시 단원구 신촌5길 28</p>
       </FooterBottom>
     </FooterContainer>
   );

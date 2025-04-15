@@ -7,71 +7,58 @@ const HomeContainer = styled.div`
   margin-top: 70px; /* To account for fixed header */
 `;
 
-const HeroSection = styled.section`
-  position: relative;
-  width: 100%;
+const HeroSection = styled.div`
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), 
-              url('/images/hero-bg.jpg') no-repeat center;
-  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  padding: 0 10%;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
   color: white;
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('/images/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+  }
 `;
 
 const HeroTitle = styled.h1`
   font-size: 3.5rem;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 1rem;
-  animation: fadeInUp 1s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   
   @media (max-width: 768px) {
     font-size: 2.5rem;
   }
-  
-  @keyframes fadeInUp {
-    from {
-      transform: translateY(30px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
 `;
 
-const HeroSubtitle = styled.div`
-  font-size: 1.8rem;
-  margin-bottom: 2rem;
-  animation: fadeInUp 1s ease 0.3s forwards;
-  opacity: 0;
+const HeroSubtitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   
   @media (max-width: 768px) {
-    font-size: 1.3rem;
-  }
-  
-  @keyframes fadeInUp {
-    from {
-      transform: translateY(30px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    font-size: 1.5rem;
   }
 `;
 
 const HeroDescription = styled.p`
   font-size: 1.2rem;
+  max-width: 800px;
+  line-height: 1.6;
   margin-bottom: 2rem;
-  max-width: 600px;
-  animation: fadeInUp 1s ease 0.6s forwards;
-  opacity: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1.5rem;
+  border-radius: 8px;
   
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -191,11 +178,13 @@ function Home() {
   return (
     <HomeContainer>
       <HeroSection>
-        <HeroTitle>SK E&C</HeroTitle>
-        <HeroSubtitle>혁신 Connect 미래</HeroSubtitle>
+        <HeroTitle>(주)에스앤케이이엔지</HeroTitle>
+        <HeroSubtitle>전기·전자 기자재 전문 공급 파트너</HeroSubtitle>
         <HeroDescription>
-          SK E&C는 지속가능한 미래를 위한 혁신적인 건설 솔루션을 제공합니다. 
-          인프라, 건축, 플랜트, 친환경 에너지 분야에서 글로벌 리더로 성장하고 있습니다.
+        (주)에스앤케이이엔지는 발전소 운영의 핵심인 
+        전기·전자 기계, 정밀 부품, 첨단 계측기기 및 관련 기자재를 전문적으로 취급하는 
+        도매 기업입니다. 다년간의 경험과 전문성을 바탕으로 고객사의 안정적인 전력 생산을 
+        지원하는 신뢰할 수 있는 파트너가 되겠습니다.
         </HeroDescription>
         <ScrollIndicator>
           <p>Scroll Down</p>
@@ -206,45 +195,53 @@ function Home() {
       </HeroSection>
       
       <BusinessSection>
-        <SectionTitle>사업영역</SectionTitle>
-        <BusinessGrid>
-          <BusinessCard>
-            <BusinessCardImage style={{ backgroundImage: `url('/images/infrastructure.jpg')` }} />
-            <BusinessCardContent>
-              <h3>인프라</h3>
-              <p>도로, 교량, 철도, 항만 등 국가 기간시설을 구축하여 편리한 사회 인프라를 만들어갑니다.</p>
-              <Button href="#">자세히 보기</Button>
-            </BusinessCardContent>
-          </BusinessCard>
-          
-          <BusinessCard>
-            <BusinessCardImage style={{ backgroundImage: `url('/images/building.jpg')` }} />
-            <BusinessCardContent>
-              <h3>건축/주택</h3>
-              <p>최신 건축 기술과 디자인으로 고객의 요구에 부합하는 주거 및 상업 공간을 창출합니다.</p>
-              <Button href="#">자세히 보기</Button>
-            </BusinessCardContent>
-          </BusinessCard>
-          
-          <BusinessCard>
-            <BusinessCardImage style={{ backgroundImage: `url('/images/plant.jpg')` }} />
-            <BusinessCardContent>
-              <h3>플랜트</h3>
-              <p>고도의 기술력을 바탕으로 석유화학, 발전, 환경 플랜트 등 다양한 산업 시설을 건설합니다.</p>
-              <Button href="#">자세히 보기</Button>
-            </BusinessCardContent>
-          </BusinessCard>
-          
-          <BusinessCard>
-            <BusinessCardImage style={{ backgroundImage: `url('/images/eco.jpg')` }} />
-            <BusinessCardContent>
-              <h3>친환경 에너지</h3>
-              <p>태양광, 풍력, 수소 등 친환경 에너지 사업을 통해 지속가능한 미래를 구현합니다.</p>
-              <Button href="#">자세히 보기</Button>
-            </BusinessCardContent>
-          </BusinessCard>
-        </BusinessGrid>
-      </BusinessSection>
+      <SectionTitle>사업영역</SectionTitle>
+      <BusinessGrid>
+        {/* 카드 1: 주요 전기 기계/장비 */}
+        <BusinessCard>
+          {/* TODO: 이미지 URL을 관련 이미지로 변경하세요 (예: /images/electrical_equipment.jpg) */}
+          <BusinessCardImage style={{ backgroundImage: `url('/images/power_equipment.jpg')` }} /> 
+          <BusinessCardContent>
+            <h3>주요 전기 기계·장비</h3>
+            <p>발전소의 안정적인 전력 생산 및 공급에 필수적인 변압기, 차단기, 보호 계전기 등 고품질의 핵심 전기 기계 및 장비를 공급합니다.</p>
+            {/* <Button href="#">자세히 보기</Button> -- 필요시 링크 추가 */}
+          </BusinessCardContent>
+        </BusinessCard>
+        
+        {/* 카드 2: 제어 시스템 및 전자 부품 */}
+        <BusinessCard>
+          {/* TODO: 이미지 URL을 관련 이미지로 변경하세요 (예: /images/control_systems.jpg) */}
+          <BusinessCardImage style={{ backgroundImage: `url('/images/automation_components.jpg')` }} />
+          <BusinessCardContent>
+            <h3>제어 시스템 및 전자 부품</h3>
+            <p>발전 설비의 정밀 제어 및 자동화 시스템 구축에 필요한 PLC, 센서, 제어 모듈 등 다양한 고성능 전자 부품 및 시스템 솔루션을 제공합니다.</p>
+            {/* <Button href="#">자세히 보기</Button> -- 필요시 링크 추가 */}
+          </BusinessCardContent>
+        </BusinessCard>
+        
+        {/* 카드 3: 계측기기 및 시험 장비 */}
+        <BusinessCard>
+           {/* TODO: 이미지 URL을 관련 이미지로 변경하세요 (예: /images/instruments.jpg) */}
+          <BusinessCardImage style={{ backgroundImage: `url('/images/measuring_instruments.jpg')` }} />
+          <BusinessCardContent>
+            <h3>계측기기 및 시험 장비</h3>
+            <p>설비 상태의 정확한 측정, 진단 및 감시를 위한 전압/전류계, 온도/압력계 등 신뢰성 높은 산업용 계측기기와 시험 장비를 공급합니다.</p>
+            {/* <Button href="#">자세히 보기</Button> -- 필요시 링크 추가 */}
+          </BusinessCardContent>
+        </BusinessCard>
+        
+        {/* 카드 4: 관련 기자재 및 부품 */}
+        <BusinessCard>
+          {/* TODO: 이미지 URL을 관련 이미지로 변경하세요 (예: /images/related_materials.jpg) */}
+          <BusinessCardImage style={{ backgroundImage: `url('/images/cables_parts.jpg')` }} /> 
+          <BusinessCardContent>
+            <h3>관련 기자재 및 부품</h3>
+            <p>케이블, 커넥터, 배관 자재, 예비 부품 등 발전소 운영 및 유지보수에 필요한 다양한 종류의 고품질 관련 기자재와 소모품을 취급합니다.</p>
+            {/* <Button href="#">자세히 보기</Button> -- 필요시 링크 추가 */}
+          </BusinessCardContent>
+        </BusinessCard>
+      </BusinessGrid>
+    </BusinessSection>
     </HomeContainer>
   );
 }

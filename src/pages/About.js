@@ -183,7 +183,7 @@ function About() {
       
       <ContentSection>
         <SectionTitle>회사소개</SectionTitle>
-        <p>SK E&C는 글로벌 종합건설회사로서 인프라, 건축/주택, 플랜트, 친환경 에너지 사업을 통해 
+        <p>(주)에스앤케이이엔지는 글로벌 종합건설회사로서 인프라, 건축/주택, 플랜트, 친환경 에너지 사업을 통해 
         인류의 삶의 질 향상과 지속가능한 발전에 기여하고 있습니다. 고객과 사회에 최고의 가치를 
         제공하며 미래를 선도하는 혁신적인 기업으로 성장하고 있습니다.</p>
         
@@ -246,7 +246,7 @@ function About() {
               <TimelineContent>
                 <h3>2000</h3>
                 <p>- SK그룹 편입</p>
-                <p>- 회사명 변경 (SK E&C)</p>
+                <p>- 회사명 변경 ((주)에스앤케이이엔지)</p>
               </TimelineContent>
             </TimelineItem>
             
