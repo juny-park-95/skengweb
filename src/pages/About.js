@@ -174,6 +174,58 @@ const TimelineContent = styled.div`
   }
 `;
 
+const LocationInfo = styled.div`
+  margin-top: 3rem;
+`;
+
+const AddressCard = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+`;
+
+const InfoTitle = styled.h3`
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #0066cc;
+`;
+
+const InfoContent = styled.div`
+  color: #666;
+  line-height: 1.6;
+`;
+
+const MapContainer = styled.div`
+  margin-top: 2rem;
+`;
+
+const TransportSection = styled.div`
+  margin-top: 3rem;
+`;
+
+const TransportGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const TransportCard = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+`;
+
+const TransportIcon = styled.span`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+`;
+
 function About() {
   return (
     <AboutContainer>
@@ -183,25 +235,29 @@ function About() {
       
       <ContentSection>
         <SectionTitle>회사소개</SectionTitle>
-        <p>(주)에스앤케이이엔지는 글로벌 종합건설회사로서 인프라, 건축/주택, 플랜트, 친환경 에너지 사업을 통해 
-        인류의 삶의 질 향상과 지속가능한 발전에 기여하고 있습니다. 고객과 사회에 최고의 가치를 
-        제공하며 미래를 선도하는 혁신적인 기업으로 성장하고 있습니다.</p>
+        {/* 회사 소개 문구 수정 */}
+        <p>(주)에스앤케이이엔지는 발전소의 안정적이고 효율적인 운영에 필수적인 전기·전자 기계, 부품 및 계측기기 분야의 전문 공급 기업입니다. 
+        다년간 축적된 전문성과 신뢰를 바탕으로, 고품질의 제품과 최적화된 솔루션을 제공하여 국내외 발전 산업 발전에 기여하고 있습니다. 
+        고객과의 상생을 최우선으로 생각하며, 지속적인 혁신을 통해 전력 산업의 든든한 파트너로 성장하고 있습니다.</p>
         
         <CompanyVision>
+          {/* 비전, 미션, 핵심가치 수정 */}
           <VisionCard>
             <h3>VISION</h3>
-            <p>지속가능한 미래를 창조하는 글로벌 건설 리더</p>
+            {/* 예시: 회사의 지향점을 명확히 */}
+            <p>발전 산업 분야 최고의 신뢰를 받는 전기·전자 설비 솔루션 파트너</p> 
           </VisionCard>
           
           <VisionCard>
             <h3>MISSION</h3>
-            <p>혁신적인 기술과 서비스로 고객과 사회에 가치를 창출하고, 
-            더 나은 미래를 위한 인프라를 구축합니다.</p>
+            {/* 예시: 회사의 역할과 기여 */}
+            <p>최고 품질의 제품과 전문 기술 서비스를 통해 고객 발전소의 가동 효율성과 안정성 극대화에 기여한다.</p>
           </VisionCard>
           
           <VisionCard>
             <h3>CORE VALUES</h3>
-            <p>고객중심, 혁신, 신뢰, 지속가능성, 전문성</p>
+            {/* 예시: 회사의 핵심 가치 */}
+            <p>신뢰, 전문성, 품질, 고객 만족, 혁신</p> 
           </VisionCard>
         </CompanyVision>
       </ContentSection>
@@ -210,62 +266,102 @@ function About() {
         <SectionTitle>연혁</SectionTitle>
         <CompanyHistory>
           <Timeline>
+            {/* TODO: 아래 연혁 내용은 예시 구조입니다. 
+              (주)에스앤케이이엔지의 실제 설립일, 주요 사업 확장, 파트너십, 인증 획득 등 
+              의미있는 실제 연혁으로 반드시 교체해주세요. 
+              최신 순서 또는 오래된 순서 중 택일하여 일관성 있게 나열합니다.
+            */}
             <TimelineItem>
               <TimelineContent>
-                <h3>2022</h3>
-                <p>- 친환경 에너지 사업 확대</p>
-                <p>- 글로벌 ESG 경영 선포</p>
+                <h3>[최신 연도]</h3>
+                <p>- [최신 주요 활동 내용 1]</p>
+                <p>- [최신 주요 활동 내용 2]</p>
               </TimelineContent>
             </TimelineItem>
             
             <TimelineItem>
               <TimelineContent>
-                <h3>2018</h3>
-                <p>- 스마트 건설 기술 도입</p>
-                <p>- 베트남 지사 설립</p>
+                <h3>[이전 연도]</h3>
+                <p>- [주요 활동 내용 1]</p>
+                <p>- [주요 활동 내용 2]</p>
               </TimelineContent>
             </TimelineItem>
-            
+
             <TimelineItem>
               <TimelineContent>
-                <h3>2014</h3>
-                <p>- 중동 대형 프로젝트 수주</p>
-                <p>- 매출 5조원 달성</p>
+                <h3>[설립 연도 또는 초기 연도]</h3>
+                <p>- (주)에스앤케이이엔지 설립</p>
+                {/* <p>- [초기 주요 활동 내용]</p> */}
               </TimelineContent>
             </TimelineItem>
-            
-            <TimelineItem>
-              <TimelineContent>
-                <h3>2010</h3>
-                <p>- 글로벌 경영 전략 수립</p>
-                <p>- 싱가포르 지사 설립</p>
-              </TimelineContent>
-            </TimelineItem>
-            
-            <TimelineItem>
-              <TimelineContent>
-                <h3>2000</h3>
-                <p>- SK그룹 편입</p>
-                <p>- 회사명 변경 ((주)에스앤케이이엔지)</p>
-              </TimelineContent>
-            </TimelineItem>
-            
-            <TimelineItem>
-              <TimelineContent>
-                <h3>1990</h3>
-                <p>- 기업 공개</p>
-                <p>- 해외 시장 진출</p>
-              </TimelineContent>
-            </TimelineItem>
-            
-            <TimelineItem>
-              <TimelineContent>
-                <h3>1977</h3>
-                <p>- 회사 설립</p>
-              </TimelineContent>
-            </TimelineItem>
+
+            {/* 필요에 따라 <TimelineItem> 블록을 추가하거나 삭제하세요 */}
+
           </Timeline>
         </CompanyHistory>
+      </ContentSection>
+      
+      <ContentSection>
+        <SectionTitle>오시는 길</SectionTitle>
+        <LocationInfo>
+          <AddressCard>
+            <InfoTitle>주소</InfoTitle>
+            <InfoContent>
+              <p>경기 안산시 단원구 신촌5길 28</p>
+              <p>우편번호: 15443</p>
+              <p>전화: 031-XXXX-XXXX</p>
+              <p>이메일: info@skeng.co.kr</p>
+              <p>영업시간: 평일 09:00 - 18:00</p>
+              <p>토/일/공휴일 휴무</p>
+            </InfoContent>
+          </AddressCard>
+          
+          <MapContainer>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2243.7777430184738!2d126.81750527184691!3d37.31454205827108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b6e53e53fe145%3A0x7bd617d6a3522ffd!2z6rK96riw64-EIOyViOyCsOyLnCDri6jsm5Dqtawg7Iug7LSMNeq4uCAyOA!5e0!3m2!1sko!2skr!4v1744726564468!5m2!1sko!2skr" 
+              width="600" 
+              height="450" 
+              style={{ border: 0 }} 
+              allowFullScreen 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </MapContainer>
+        </LocationInfo>
+        
+        <TransportSection>
+          <SectionTitle>교통 안내</SectionTitle>
+          <TransportGrid>
+            <TransportCard>
+              <TransportIcon>🚗</TransportIcon>
+              <InfoTitle>자가용 이용 시</InfoTitle>
+              <InfoContent>
+                <p>- 서해안고속도로 안산IC에서 15분 거리</p>
+                <p>- 주차장 이용 가능 (무료)</p>
+              </InfoContent>
+            </TransportCard>
+            
+            <TransportCard>
+              <TransportIcon>🚍</TransportIcon>
+              <InfoTitle>버스 이용 시</InfoTitle>
+              <InfoContent>
+                <p>- 안산역/안산터미널 정류장에서 하차</p>
+                <p>- 123, 456번 버스 이용</p>
+                <p>- '신촌사거리' 정류장에서 하차 후 도보 5분</p>
+              </InfoContent>
+            </TransportCard>
+            
+            <TransportCard>
+              <TransportIcon>🚆</TransportIcon>
+              <InfoTitle>지하철 이용 시</InfoTitle>
+              <InfoContent>
+                <p>- 4호선 안산역에서 하차</p>
+                <p>- 2번 출구에서 도보 15분 또는</p>
+                <p>- 안산역 앞에서 123, 456번 버스 이용</p>
+              </InfoContent>
+            </TransportCard>
+          </TransportGrid>
+        </TransportSection>
       </ContentSection>
     </AboutContainer>
   );

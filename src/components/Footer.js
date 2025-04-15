@@ -56,33 +56,33 @@ function Footer() {
       <FooterContent>
         <FooterSection>
           <FooterTitle>(주)에스앤케이이엔지</FooterTitle>
-          <FooterLink href="#">회사소개</FooterLink>
-          <FooterLink href="#">경영이념</FooterLink>
-          <FooterLink href="#">연혁</FooterLink>
-          <FooterLink href="#">오시는 길</FooterLink>
+          <FooterLink href="/about">회사소개</FooterLink>
+          <FooterLink href="/about#vision">경영이념</FooterLink>
+          <FooterLink href="/about#history">연혁</FooterLink>
+          <FooterLink href="/location">오시는 길</FooterLink>
         </FooterSection>
         
         <FooterSection>
           <FooterTitle>사업영역</FooterTitle>
-          <FooterLink href="#">주요 전기 기계 및 장비</FooterLink>
-          <FooterLink href="#">제어 시스템 및 전자 부품</FooterLink>
-          <FooterLink href="#">계측기기 및 시험 장비</FooterLink>
-          <FooterLink href="#">관련 기자재 및 부품</FooterLink>
+          <FooterLink href="/business#power-equipment">주요 전기 기계 및 장비</FooterLink>
+          <FooterLink href="/business#control-systems">제어 시스템 및 전자 부품</FooterLink>
+          <FooterLink href="/business#instruments">계측기기 및 시험 장비</FooterLink>
+          <FooterLink href="/business#materials">관련 기자재 및 부품</FooterLink>
         </FooterSection>
         
         <FooterSection>
           <FooterTitle>인재채용</FooterTitle>
-          <FooterLink href="#">인재상</FooterLink>
-          <FooterLink href="#">채용정보</FooterLink>
-          <FooterLink href="#">복리후생</FooterLink>
+          <FooterLink href="/hr#talent">인재상</FooterLink>
+          <FooterLink href="/hr#recruitment">채용정보</FooterLink>
+          <FooterLink href="/hr#welfare">복리후생</FooterLink>
         </FooterSection>
         
         <FooterSection>
           <FooterTitle>고객센터</FooterTitle>
-          <FooterLink href="#">공지사항</FooterLink>
-          <FooterLink href="#">뉴스/보도자료</FooterLink>
-          <FooterLink href="#">FAQ</FooterLink>
-          <FooterLink href="#">문의하기</FooterLink>
+          <FooterLink href="/center#notice">공지사항</FooterLink>
+          <FooterLink href="/center#news">뉴스/보도자료</FooterLink>
+          <FooterLink href="/center#faq">FAQ</FooterLink>
+          <FooterLink href="/center#contact">문의하기</FooterLink>
         </FooterSection>
       </FooterContent>
       
