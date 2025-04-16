@@ -57,7 +57,6 @@ function Footer() {
         <FooterSection>
           <FooterTitle>(주)에스앤케이이엔지</FooterTitle>
           <FooterLink href="/about">회사소개</FooterLink>
-          <FooterLink href="/about#vision">경영이념</FooterLink>
           <FooterLink href="/about#history">연혁</FooterLink>
           <FooterLink href="/location">오시는 길</FooterLink>
         </FooterSection>

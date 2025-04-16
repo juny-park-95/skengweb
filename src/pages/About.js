@@ -198,6 +198,19 @@ const InfoContent = styled.div`
 
 const MapContainer = styled.div`
   margin-top: 2rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  
+  iframe {
+    width: 100%;
+    max-width: 100%;
+    height: 450px;
+    
+    @media (max-width: 768px) {
+      height: 350px;
+    }
+  }
 `;
 
 const TransportSection = styled.div`
@@ -319,8 +332,6 @@ function About() {
           <MapContainer>
             <iframe 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2243.7777430184738!2d126.81750527184691!3d37.31454205827108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b6e53e53fe145%3A0x7bd617d6a3522ffd!2z6rK96riw64-EIOyViOyCsOyLnCDri6jsm5Dqtawg7Iug7LSMNeq4uCAyOA!5e0!3m2!1sko!2skr!4v1744726564468!5m2!1sko!2skr" 
-              width="600" 
-              height="450" 
               style={{ border: 0 }} 
               allowFullScreen 
               loading="lazy" 
