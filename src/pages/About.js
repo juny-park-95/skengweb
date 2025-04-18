@@ -279,37 +279,19 @@ function About() {
         <SectionTitle>연혁</SectionTitle>
         <CompanyHistory>
           <Timeline>
-            {/* TODO: 아래 연혁 내용은 예시 구조입니다. 
-              (주)에스앤케이이엔지의 실제 설립일, 주요 사업 확장, 파트너십, 인증 획득 등 
-              의미있는 실제 연혁으로 반드시 교체해주세요. 
-              최신 순서 또는 오래된 순서 중 택일하여 일관성 있게 나열합니다.
-            */}
             <TimelineItem>
               <TimelineContent>
-                <h3>[최신 연도]</h3>
-                <p>- [최신 주요 활동 내용 1]</p>
-                <p>- [최신 주요 활동 내용 2]</p>
+                <h3>2015년 2월</h3>
+                <p>- 2015년 2월 17일 주식회사 에스앤케이이엔지로 사명 변경</p>
               </TimelineContent>
             </TimelineItem>
             
             <TimelineItem>
               <TimelineContent>
-                <h3>[이전 연도]</h3>
-                <p>- [주요 활동 내용 1]</p>
-                <p>- [주요 활동 내용 2]</p>
+                <h3>2013년 8월</h3>
+                <p>- 2013년 8월 9일 주식회사 에스케이이엔지 설립</p>
               </TimelineContent>
             </TimelineItem>
-
-            <TimelineItem>
-              <TimelineContent>
-                <h3>[설립 연도 또는 초기 연도]</h3>
-                <p>- (주)에스앤케이이엔지 설립</p>
-                {/* <p>- [초기 주요 활동 내용]</p> */}
-              </TimelineContent>
-            </TimelineItem>
-
-            {/* 필요에 따라 <TimelineItem> 블록을 추가하거나 삭제하세요 */}
-
           </Timeline>
         </CompanyHistory>
       </ContentSection>
