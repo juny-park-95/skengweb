@@ -78,10 +78,10 @@ function Footer() {
         
         <FooterSection>
           <FooterTitle>고객센터</FooterTitle>
-          <FooterLink href="/center#notice">공지사항</FooterLink>
-          <FooterLink href="/center#news">뉴스/보도자료</FooterLink>
-          <FooterLink href="/center#faq">FAQ</FooterLink>
+          <FooterLink href="/center#support">고객지원</FooterLink>
+          <FooterLink href="/center#faq">자주 묻는 질문</FooterLink>
           <FooterLink href="/center#contact">문의하기</FooterLink>
+          <FooterLink href="tel:07082700665">070-8270-0665</FooterLink>
         </FooterSection>
       </FooterContent>
       
