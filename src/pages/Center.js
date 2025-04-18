@@ -49,12 +49,24 @@ const SectionTitle = styled.h2`
 
 const SupportSection = styled.div`
   margin-top: 2rem;
+  display: flex;
+  justify-content: center;
 `;
 
 const SupportGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const SupportCard = styled.div`
