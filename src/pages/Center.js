@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const CenterContainer = styled.div`
@@ -47,103 +47,23 @@ const SectionTitle = styled.h2`
   }
 `;
 
-const NewsSection = styled.div`
+const SupportSection = styled.div`
   margin-top: 2rem;
 `;
 
-const NewsList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-`;
-
-const NewsItem = styled.div`
-  display: flex;
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  }
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const NewsImage = styled.div`
-  flex: 0 0 300px;
-  background-size: cover;
-  background-position: center;
-  
-  @media (max-width: 768px) {
-    height: 200px;
-  }
-`;
-
-const NewsContent = styled.div`
-  flex: 1;
-  padding: 1.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-`;
-
-const NewsDate = styled.div`
-  color: #888;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-`;
-
-const NewsTitle = styled.h3`
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  
-  a {
-    color: #333;
-    text-decoration: none;
-    
-    &:hover {
-      color: #0066cc;
-    }
-  }
-`;
-
-const NewsSummary = styled.p`
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-`;
-
-const NewsLink = styled.a`
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: 500;
-  margin-top: auto;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const MediaSection = styled.div`
-  margin-top: 2rem;
-`;
-
-const MediaGrid = styled.div`
+const SupportGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
 `;
 
-const MediaCard = styled.div`
+const SupportCard = styled.div`
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  text-align: center;
   transition: transform 0.3s;
   
   &:hover {
@@ -152,64 +72,33 @@ const MediaCard = styled.div`
   }
 `;
 
-const MediaImage = styled.div`
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  
-  svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 1;
-  }
-  
-  ${MediaCard}:hover &::after,
-  ${MediaCard}:hover & svg {
-    opacity: 1;
-  }
+const SupportIcon = styled.div`
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: #0066cc;
 `;
 
-const MediaContent = styled.div`
-  padding: 1.5rem;
+const SupportTitle = styled.h3`
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #333;
 `;
 
-const MediaTitle = styled.h3`
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+const SupportText = styled.p`
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+`;
+
+const SupportLink = styled.a`
+  display: inline-block;
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 500;
   
-  a {
-    color: #333;
-    text-decoration: none;
-    
-    &:hover {
-      color: #0066cc;
-    }
+  &:hover {
+    text-decoration: underline;
   }
-`;
-
-const MediaDate = styled.div`
-  color: #888;
-  font-size: 0.9rem;
 `;
 
 const TabsContainer = styled.div`
@@ -337,6 +226,18 @@ const TextArea = styled.textarea`
   }
 `;
 
+const Select = styled.select`
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  
+  &:focus {
+    border-color: #0066cc;
+    outline: none;
+  }
+`;
+
 const SubmitButton = styled.button`
   grid-column: 1 / -1;
   padding: 1rem;
@@ -354,218 +255,268 @@ const SubmitButton = styled.button`
   }
 `;
 
+const ContactInfo = styled.div`
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+`;
+
+const InfoGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const InfoItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
+
+const InfoIcon = styled.div`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #0066cc;
+`;
+
+const InfoTitle = styled.h4`
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+`;
+
+const InfoText = styled.p`
+  color: #666;
+  line-height: 1.6;
+`;
+
 function Center() {
-  // For a real implementation, you would use React's useState to track the active tab
-  // and implement handlers for the FAQ accordion
+  const [activeTab, setActiveTab] = useState('faq');
+  const [activeFaq, setActiveFaq] = useState(0);
+  
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+  
+  const toggleFaq = (index) => {
+    setActiveFaq(activeFaq === index ? null : index);
+  };
   
   return (
     <CenterContainer>
       <PageBanner>
-        <BannerTitle>홍보센터</BannerTitle>
+        <BannerTitle>고객센터</BannerTitle>
       </PageBanner>
       
       <ContentSection>
-        <SectionTitle>뉴스</SectionTitle>
-        <NewsSection>
-          <NewsList>
-            <NewsItem>
-              <NewsImage style={{ backgroundImage: `url('/images/news1.jpg')` }} />
-              <NewsContent>
-                <NewsDate>2025-04-01</NewsDate>
-                <NewsTitle>
-                  <a href="#">(주)에스앤케이이엔지, 제로에너지 건축물 기술 개발 완료</a>
-                </NewsTitle>
-                <NewsSummary>
-                  (주)에스앤케이이엔지가 개발한 신기술이 국내 건설 업계 최초로 제로에너지 건축물 인증을 획득했습니다. 
-                  이 기술은 건물 에너지 소비를 최소화하고 신재생 에너지를 활용해 탄소 배출량을 크게 줄일 수 있습니다.
-                </NewsSummary>
-                <NewsLink href="#">자세히 보기</NewsLink>
-              </NewsContent>
-            </NewsItem>
+        <SectionTitle>고객지원</SectionTitle>
+        <SupportSection>
+          <SupportGrid>
+            <SupportCard>
+              <SupportIcon>📞</SupportIcon>
+              <SupportTitle>전화 문의</SupportTitle>
+              <SupportText>
+                기술 지원 및 제품 문의는 전화로 빠르게 도움을 받으실 수 있습니다.
+                평일 09:00-18:00 운영
+              </SupportText>
+              <SupportLink href="tel:07082700665">070-8270-0665</SupportLink>
+            </SupportCard>
             
-            <NewsItem>
-              <NewsImage style={{ backgroundImage: `url('/images/news2.jpg')` }} />
-              <NewsContent>
-                <NewsDate>2025-03-15</NewsDate>
-                <NewsTitle>
-                  <a href="#">(주)에스앤케이이엔지, 중동 대형 플랜트 수주 성공</a>
-                </NewsTitle>
-                <NewsSummary>
-                  (주)에스앤케이이엔지가 사우디아라비아에서 대규모 석유화학 플랜트 프로젝트를 수주했습니다. 
-                  이번 프로젝트는 약 2조원 규모로, 회사의海外 사업 확장에 큰 기여를 할 것으로 기대됩니다.
-                </NewsSummary>
-                <NewsLink href="#">자세히 보기</NewsLink>
-              </NewsContent>
-            </NewsItem>
+            <SupportCard>
+              <SupportIcon>📧</SupportIcon>
+              <SupportTitle>이메일 문의</SupportTitle>
+              <SupportText>
+                상세한 문의사항은 이메일로 보내주시면 
+                영업일 기준 24시간 이내에 답변드립니다.
+              </SupportText>
+              <SupportLink href="mailto:sk5559611@hanmail.net">sk5559611@hanmail.net</SupportLink>
+            </SupportCard>
             
-            <NewsItem>
-              <NewsImage style={{ backgroundImage: `url('/images/news3.jpg')` }} />
-              <NewsContent>
-                <NewsDate>2025-02-20</NewsDate>
-                <NewsTitle>
-                  <a href="#">(주)에스앤케이이엔지, ESG 경영 선포 및 중장기 로드맵 발표</a>
-                </NewsTitle>
-                <NewsSummary>
-                  (주)에스앤케이이엔지가 지속가능한 성장을 위한 ESG 경영 전략을 선포했습니다. 
-                  2030년까지 탄소중립 달성, 친환경 사업 비중 확대, 사회적 가치 창출 등을 핵심 전략으로 추진할 계획입니다.
-                </NewsSummary>
-                <NewsLink href="#">자세히 보기</NewsLink>
-              </NewsContent>
-            </NewsItem>
-          </NewsList>
-        </NewsSection>
+            <SupportCard>
+              <SupportIcon>🔧</SupportIcon>
+              <SupportTitle>기술 지원</SupportTitle>
+              <SupportText>
+                제품 설치 및 유지보수 관련 기술 지원이 필요하신 경우
+                기술지원팀으로 문의해주세요.
+              </SupportText>
+              <SupportLink href="#technical-support">기술지원 요청하기</SupportLink>
+            </SupportCard>
+          </SupportGrid>
+        </SupportSection>
       </ContentSection>
       
       <ContentSection>
-        <SectionTitle>미디어</SectionTitle>
-        <MediaSection>
-          <MediaGrid>
-            <MediaCard>
-              <MediaImage style={{ backgroundImage: `url('/images/media1.jpg')` }}>
-                <svg viewBox="0 0 24 24" fill="white">
-                  <path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-              </MediaImage>
-              <MediaContent>
-                <MediaTitle>
-                  <a href="#">(주)에스앤케이이엔지 친환경 기술 소개 영상</a>
-                </MediaTitle>
-                <MediaDate>2025-03-25</MediaDate>
-              </MediaContent>
-            </MediaCard>
-            
-            <MediaCard>
-              <MediaImage style={{ backgroundImage: `url('/images/media2.jpg')` }}>
-                <svg viewBox="0 0 24 24" fill="white">
-                  <path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-              </MediaImage>
-              <MediaContent>
-                <MediaTitle>
-                  <a href="#">대규모 해외 프로젝트 현장 탐방</a>
-                </MediaTitle>
-                <MediaDate>2025-02-15</MediaDate>
-              </MediaContent>
-            </MediaCard>
-            
-            <MediaCard>
-              <MediaImage style={{ backgroundImage: `url('/images/media3.jpg')` }}>
-                <svg viewBox="0 0 24 24" fill="white">
-                  <path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-              </MediaImage>
-              <MediaContent>
-                <MediaTitle>
-                  <a href="#">신입사원 채용 설명회 현장</a>
-                </MediaTitle>
-                <MediaDate>2025-01-30</MediaDate>
-              </MediaContent>
-            </MediaCard>
-            
-            <MediaCard>
-              <MediaImage style={{ backgroundImage: `url('/images/media4.jpg')` }}>
-                <svg viewBox="0 0 24 24" fill="white">
-                  <path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-              </MediaImage>
-              <MediaContent>
-                <MediaTitle>
-                  <a href="#">CEO 인터뷰: 미래 건설산업의 방향성</a>
-                </MediaTitle>
-                <MediaDate>2025-01-10</MediaDate>
-              </MediaContent>
-            </MediaCard>
-          </MediaGrid>
-        </MediaSection>
-      </ContentSection>
-      
-      <ContentSection>
-        <SectionTitle>고객센터</SectionTitle>
+        <SectionTitle>자주 묻는 질문</SectionTitle>
         <TabsContainer>
           <TabsHeader>
-            <Tab active>FAQ</Tab>
-            <Tab>문의하기</Tab>
+            <Tab 
+              active={activeTab === 'faq'} 
+              onClick={() => handleTabClick('faq')}
+            >
+              FAQ
+            </Tab>
+            <Tab 
+              active={activeTab === 'contact'} 
+              onClick={() => handleTabClick('contact')}
+            >
+              문의하기
+            </Tab>
           </TabsHeader>
           
-          <TabContent active>
+          <TabContent active={activeTab === 'faq'}>
             <FAQItem>
-              <FAQQuestion className="active">(주)에스앤케이이엔지에 취업하려면 어떤 자격요건이 필요한가요?</FAQQuestion>
-              <FAQAnswer>
-                  (주)에스앤케이이엔지는 전공에 제한을 두지 않고 다양한 인재를 선발하고 있습니다. 다만, 직무별로 요구되는 
-                  기본적인 지식과 역량이 다를 수 있으니, 지원 전 채용 공고의 자격요건을 확인하시기 바랍니다. 
-                  일반적으로 건설, 엔지니어링, 경영, IT 관련 전공자들이 많이 지원하고 있습니다.
+              <FAQQuestion 
+                className={activeFaq === 0 ? 'active' : ''} 
+                onClick={() => toggleFaq(0)}
+              >
+                제품 구매 절차는 어떻게 되나요?
+              </FAQQuestion>
+              <FAQAnswer className={activeFaq === 0 ? 'active' : ''}>
+                <p>
+                  제품 구매를 원하시면 전화(070-8270-0665) 또는 이메일(sk5559611@hanmail.net)로 문의해 주시기 바랍니다.
+                  담당 영업 담당자가 제품 사양, 가격, 납기 등에 대해 상세히 안내해 드립니다.
+                  대량 구매 및 지속적인 거래를 원하시는 기업의 경우 별도의 계약을 통해 진행됩니다.
+                </p>
               </FAQAnswer>
             </FAQItem>
             
             <FAQItem>
-              <FAQQuestion>(주)에스앤케이이엔지의 주요 해외 사업 국가는 어디인가요?</FAQQuestion>
-              <FAQAnswer>
-                  (주)에스앤케이이엔지는 중동(사우디아라비아, UAE, 쿠웨이트 등), 동남아시아(베트남, 싱가포르, 말레이시아 등), 
-                  중남미, 아프리카 등 전 세계 다양한 지역에서 사업을 진행하고 있습니다. 특히 중동과 동남아시아 
-                  지역에서 대형 인프라 및 플랜트 프로젝트를 활발히 수행 중입니다.
+              <FAQQuestion 
+                className={activeFaq === 2 ? 'active' : ''} 
+                onClick={() => toggleFaq(2)}
+              >
+                기술 교육 및 제품 사용 교육을 받을 수 있나요?
+              </FAQQuestion>
+              <FAQAnswer className={activeFaq === 2 ? 'active' : ''}>
+                <p>
+                  네, (주)에스앤케이이엔지는 제품 구매 고객을 대상으로 제품 사용법 및 유지보수 교육을 제공하고 있습니다.
+                  교육은 온라인 또는 오프라인으로 진행되며, 고객사 요청에 따라 방문 교육도 가능합니다.
+                  교육 일정 및 비용은 담당 영업사원 또는 고객센터를 통해 문의해 주시기 바랍니다.
+                </p>
               </FAQAnswer>
             </FAQItem>
             
             <FAQItem>
-              <FAQQuestion>(주)에스앤케이이엔지의 친환경 에너지 사업은 어떤 것이 있나요?</FAQQuestion>
-              <FAQAnswer>
-                  (주)에스앤케이이엔지는 지속가능한 미래를 위해 다양한 친환경 에너지 사업을 추진하고 있습니다. 
-                  태양광, 풍력 등 신재생 에너지 발전소 건설, 수소 인프라 구축, 에너지 저장 시스템(ESS), 
-                  탄소 포집·활용·저장(CCUS) 기술 개발, 스마트 그리드 솔루션 등이 대표적입니다.
+              <FAQQuestion 
+                className={activeFaq === 3 ? 'active' : ''} 
+                onClick={() => toggleFaq(3)}
+              >
+                (주)에스앤케이이엔지에 협력업체로 등록하려면 어떻게 해야 하나요?
+              </FAQQuestion>
+              <FAQAnswer className={activeFaq === 3 ? 'active' : ''}>
+                <p>
+                  (주)에스앤케이이엔지 협력업체 등록을 원하시면 이메일(sk5559611@hanmail.net)로 협력업체 등록 신청서와 
+                  사업자등록증, 회사소개서를 제출해 주시기 바랍니다. 내부 심사를 거쳐 등록 여부가 결정되며,
+                  약 2주 내로 결과를 알려드립니다. 자세한 절차는 고객센터로 문의해 주시기 바랍니다.
+                </p>
               </FAQAnswer>
             </FAQItem>
             
             <FAQItem>
-              <FAQQuestion>(주)에스앤케이이엔지에 협력업체로 등록하려면 어떻게 해야 하나요?</FAQQuestion>
-              <FAQAnswer>
-                  (주)에스앤케이이엔지 협력업체 등록을 원하시면 공식 홈페이지의 '협력사 포털'을 통해 신청할 수 있습니다. 
-                  필요한 서류를 제출하면 내부 심사를 거쳐 등록 여부가 결정됩니다. 자세한 절차와 필요 서류는 
-                  홈페이지에서 확인하시거나 구매조달팀으로 문의해 주시기 바랍니다.
+              <FAQQuestion 
+                className={activeFaq === 4 ? 'active' : ''} 
+                onClick={() => toggleFaq(4)}
+              >
+                제품 배송은 어떻게 진행되나요?
+              </FAQQuestion>
+              <FAQAnswer className={activeFaq === 4 ? 'active' : ''}>
+                <p>
+                  (주)에스앤케이이엔지의 제품은 주문 확인 및 결제 완료 후 영업일 기준 3-5일 내에 출고됩니다.
+                  대형 제품 및 특수 제품의 경우 별도의 배송 일정이 적용될 수 있습니다.
+                  배송은 전문 물류업체를 통해 진행되며, 제품 특성에 따라 설치 서비스가 함께 제공될 수 있습니다.
+                  배송 관련 문의는 고객센터로 연락해 주시기 바랍니다.
+                </p>
               </FAQAnswer>
             </FAQItem>
           </TabContent>
           
-          <TabContent>
+          <TabContent active={activeTab === 'contact'}>
             <ContactForm>
               <FormGroup>
-                <Label>이름</Label>
-                <Input type="text" placeholder="이름을 입력하세요" />
+                <Label>이름 *</Label>
+                <Input type="text" placeholder="이름을 입력하세요" required />
               </FormGroup>
               
               <FormGroup>
-                <Label>이메일</Label>
-                <Input type="email" placeholder="이메일을 입력하세요" />
+                <Label>이메일 *</Label>
+                <Input type="email" placeholder="이메일을 입력하세요" required />
               </FormGroup>
               
               <FormGroup>
-                <Label>전화번호</Label>
-                <Input type="tel" placeholder="전화번호를 입력하세요" />
+                <Label>전화번호 *</Label>
+                <Input type="tel" placeholder="전화번호를 입력하세요" required />
               </FormGroup>
               
               <FormGroup>
-                <Label>문의 유형</Label>
-                <Input as="select">
+                <Label>회사명</Label>
+                <Input type="text" placeholder="회사명을 입력하세요" />
+              </FormGroup>
+              
+              <FormGroup>
+                <Label>문의 유형 *</Label>
+                <Select required>
                   <option value="">문의 유형을 선택하세요</option>
-                  <option value="general">일반 문의</option>
-                  <option value="business">사업 제휴</option>
-                  <option value="recruitment">채용 문의</option>
-                  <option value="media">언론/취재 문의</option>
+                  <option value="product">제품 문의</option>
+                  <option value="technical">기술 지원</option>
+                  <option value="warranty">보증/A/S</option>
+                  <option value="partnership">협력업체 등록</option>
+                  <option value="order">주문/배송</option>
                   <option value="other">기타</option>
-                </Input>
+                </Select>
+              </FormGroup>
+              
+              <FormGroup>
+                <Label>제품 모델</Label>
+                <Input type="text" placeholder="문의하시는 제품 모델명" />
               </FormGroup>
               
               <FormGroup className="full-width">
-                <Label>제목</Label>
-                <Input type="text" placeholder="제목을 입력하세요" />
+                <Label>제목 *</Label>
+                <Input type="text" placeholder="제목을 입력하세요" required />
               </FormGroup>
               
               <FormGroup className="full-width">
-                <Label>문의 내용</Label>
-                <TextArea placeholder="문의 내용을 상세히 기재해 주세요" />
+                <Label>문의 내용 *</Label>
+                <TextArea placeholder="문의 내용을 상세히 기재해 주세요" required />
+              </FormGroup>
+              
+              <FormGroup className="full-width">
+                <Label>첨부파일</Label>
+                <Input type="file" />
+                <small style={{ marginTop: '0.5rem', color: '#888' }}>최대 10MB (지원 형식: jpg, png, pdf, doc, docx)</small>
               </FormGroup>
               
               <SubmitButton type="submit">문의하기</SubmitButton>
             </ContactForm>
+            
+            <ContactInfo>
+              <InfoGrid>
+                <InfoItem>
+                  <InfoIcon>📍</InfoIcon>
+                  <InfoTitle>주소</InfoTitle>
+                  <InfoText>경기 안산시 단원구 신촌5길 28</InfoText>
+                </InfoItem>
+                
+                <InfoItem>
+                  <InfoIcon>📞</InfoIcon>
+                  <InfoTitle>전화</InfoTitle>
+                  <InfoText>070-8270-0665</InfoText>
+                </InfoItem>
+                
+                <InfoItem>
+                  <InfoIcon>📧</InfoIcon>
+                  <InfoTitle>이메일</InfoTitle>
+                  <InfoText>sk5559611@hanmail.net</InfoText>
+                </InfoItem>
+              </InfoGrid>
+            </ContactInfo>
           </TabContent>
         </TabsContainer>
       </ContentSection>

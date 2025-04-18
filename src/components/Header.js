@@ -200,7 +200,7 @@ function Header() {
           <Link to="/hr">인재채용</Link>
         </NavItem>
         <NavItem>
-          <Link to="/center">홍보센터</Link>
+          <Link to="/center">고객센터</Link>
         </NavItem>
       </Nav>
       
@@ -223,7 +223,7 @@ function Header() {
           <Link to="/hr">인재채용</Link>
         </NavItem>
         <NavItem>
-          <Link to="/center">홍보센터</Link>
+          <Link to="/center">고객센터</Link>
         </NavItem>
       </MobileMenu>
     </HeaderContainer>
