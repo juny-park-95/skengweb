@@ -304,8 +304,8 @@ function About() {
             <InfoContent>
               <p>경기 안산시 단원구 신촌5길 28</p>
               <p>우편번호: 15443</p>
-              <p>전화: 031-XXXX-XXXX</p>
-              <p>이메일: info@skeng.co.kr</p>
+              <p>전화: 070-8270-0665</p>
+              <p>이메일: sk5559611@hanmail.net</p>
               <p>영업시간: 평일 09:00 - 18:00</p>
               <p>토/일/공휴일 휴무</p>
             </InfoContent>
