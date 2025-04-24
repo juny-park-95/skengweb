@@ -167,6 +167,73 @@ const TimelineContent = styled.div`
   }
 `;
 
+const AwardsSection = styled.div`
+  margin-top: 3rem;
+`;
+
+const AwardsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-top: 2rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const AwardCard = styled.div`
+  flex: 1;
+  min-width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  @media (max-width: 768px) {
+    min-width: 100%;
+  }
+`;
+
+const AwardImage = styled.div`
+  width: 100%;
+  height: 250px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eaeaea;
+`;
+
+const AwardContent = styled.div`
+  padding: 1.5rem;
+  
+  h3 {
+    font-size: 1.3rem;
+    color: #0066cc;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  
+  .award-date {
+    font-weight: 500;
+    color: #333;
+    margin-top: 1rem;
+    display: block;
+  }
+`;
+
 const LocationInfo = styled.div`
   margin-top: 3rem;
 `;
@@ -268,7 +335,7 @@ function About() {
           </VisionCard>
           <VisionCard>
             <h3>CORE VALUES</h3>
-            <p>신뢰 | 전문성 | 품질 | 고객가치 | 혁신 | 지속가능성</p>
+            <p>신뢰 | 전문성 | 품질 | 고객가치</p>
           </VisionCard>
         </CompanyVision>
       </ContentSection>
@@ -302,6 +369,36 @@ function About() {
             </TimelineItem>
           </Timeline>
         </CompanyHistory>
+      </ContentSection>
+
+      {/* ========================================================================= */}
+      {/* 수상 내역 */}
+      {/* ========================================================================= */}
+      <ContentSection>
+        <SectionTitle>수상 내역</SectionTitle>
+        <AwardsSection>
+          <AwardsList>
+            <AwardCard>
+              <AwardImage style={{ backgroundImage: `url('/images/prize_01.png')` }} />
+              <AwardContent>
+                <h3>한국중부발전 인천화력본부 감사패</h3>
+                <p>기력 1, 2호기 터빈 취약설비 보강을 위한 부품 납품 및 설비 운영 기여</p>
+                <p>한국중부발전㈜인천화력본부는 에스앤케이이엔지의 탁월한 기술력과 신속한 대응으로 설비 안전성 향상 및 발전소 안정적 운영에 기여한 공로를 인정하여 감사패를 수여하였습니다.</p>
+                <span className="award-date">2013년 11월 29일</span>
+              </AwardContent>
+            </AwardCard>
+            
+            <AwardCard>
+              <AwardImage style={{ backgroundImage: `url('/images/prize_02.png')` }} />
+              <AwardContent>
+                <h3>한국동서발전(주) 실증참여확인서</h3>
+                <p>배관 압력 전송기 국산화 주도 및 발전 설비 국산화 실증 완료</p>
+                <p>한국동서발전(주)는 에스앤케이이엔지가 수행한 배관 압력 전송기 국산화 개발 및 실증 사업에 참여하여 국내 발전소 설비 국산화에 기여한 성과를 인정하여 실증참여확인서를 발급하였습니다.</p>
+                <span className="award-date">2020년 11월 27일</span>
+              </AwardContent>
+            </AwardCard>
+          </AwardsList>
+        </AwardsSection>
       </ContentSection>
 
       {/* ========================================================================= */}

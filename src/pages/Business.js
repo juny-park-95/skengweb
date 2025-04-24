@@ -213,8 +213,21 @@ const Card = styled.div`
   @media(max-width:768px){ flex-direction:column; }
 `;
 const Image = styled.div`
-  flex:1; min-height:400px; background:center / cover no-repeat;
-  @media(max-width:768px){ min-height:250px; }
+  flex:1; 
+  min-height:400px; 
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  
+  ${Card}:hover & {
+    transform: scale(1.03);
+  }
+  
+  @media(max-width:768px){ 
+    min-height:250px; 
+  }
 `;
 const Text = styled.div`
   flex:1; padding:2.5rem;

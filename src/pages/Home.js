@@ -100,7 +100,7 @@ const ScrollIndicator = styled.div`
 
 const BusinessSection = styled.section`
   padding: 5rem 10%;
-  background-color: #f5f5f5;
+  background-color:rgb(255, 255, 255);
 `;
 
 const SectionTitle = styled.h2`
@@ -142,8 +142,15 @@ const BusinessCard = styled.div`
 
 const BusinessCardImage = styled.div`
   height: 200px;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(255, 255, 255);
+  transition: all 0.3s ease;
+  
+  ${BusinessCard}:hover & {
+    transform: scale(1.05);
+  }
 `;
 
 const BusinessCardContent = styled.div`

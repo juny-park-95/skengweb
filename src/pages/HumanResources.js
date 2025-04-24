@@ -286,33 +286,23 @@ function HumanResources() {
             
             <ProcessStep>
               <StepNumber>2</StepNumber>
-              <StepTitle>필기전형</StepTitle>
-              <StepDescription>직무적성검사 및 기초능력평가</StepDescription>
-            </ProcessStep>
-            
-            <ProcessStep>
-              <StepNumber>3</StepNumber>
               <StepTitle>1차 면접</StepTitle>
               <StepDescription>실무진 면접 (직무역량 평가)</StepDescription>
             </ProcessStep>
             
             <ProcessStep>
-              <StepNumber>4</StepNumber>
+              <StepNumber>3</StepNumber>
               <StepTitle>2차 면접</StepTitle>
               <StepDescription>임원진 면접 (종합역량 평가)</StepDescription>
             </ProcessStep>
             
             <ProcessStep>
-              <StepNumber>5</StepNumber>
+              <StepNumber>4</StepNumber>
               <StepTitle>최종합격</StepTitle>
               <StepDescription>신체검사 및 입사</StepDescription>
             </ProcessStep>
           </ProcessSteps>
         </RecruitmentProcess>
-        
-        <ButtonContainer>
-          <RecruitmentButton href="#">채용공고 보기</RecruitmentButton>
-        </ButtonContainer>
       </ContentSection>
       
       <ContentSection>
@@ -345,7 +335,6 @@ function HumanResources() {
               </h3>
               <ul>
                 <li>직무교육 지원</li>
-                <li>해외연수 기회</li>
                 <li>자격증 취득 지원</li>
                 <li>도서구입비 지원</li>
               </ul>
@@ -362,7 +351,6 @@ function HumanResources() {
                 <li>단체상해보험 가입</li>
                 <li>종합건강검진</li>
                 <li>의료비 지원</li>
-                <li>헬스센터 운영</li>
               </ul>
             </WelfareCard>
             
@@ -374,9 +362,6 @@ function HumanResources() {
                 주거/생활
               </h3>
               <ul>
-                <li>사택 지원</li>
-                <li>주택구입자금 대출</li>
-                <li>통근버스 운행</li>
                 <li>경조사 지원</li>
               </ul>
             </WelfareCard>
@@ -389,8 +374,6 @@ function HumanResources() {
                 문화/레저
               </h3>
               <ul>
-                <li>휴양시설 지원</li>
-                <li>동호회 활동 지원</li>
                 <li>문화행사 지원</li>
                 <li>리프레시 휴가</li>
               </ul>
@@ -404,8 +387,6 @@ function HumanResources() {
                 가족친화
               </h3>
               <ul>
-                <li>자녀 학자금 지원</li>
-                <li>가족 건강검진</li>
                 <li>육아휴직 제도</li>
                 <li>가족초청 행사</li>
               </ul>

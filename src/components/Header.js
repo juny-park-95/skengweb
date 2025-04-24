@@ -197,6 +197,9 @@ function Header() {
           <Link to="/business">사업영역</Link>
         </NavItem>
         <NavItem>
+          <Link to="/projects">주요 납품 실적</Link>
+        </NavItem>
+        <NavItem>
           <Link to="/hr">인재채용</Link>
         </NavItem>
         <NavItem>
@@ -218,6 +221,9 @@ function Header() {
         </NavItem>
         <NavItem>
           <Link to="/business">사업영역</Link>
+        </NavItem>
+        <NavItem>
+          <Link to="/projects">주요 납품 실적</Link>
         </NavItem>
         <NavItem>
           <Link to="/hr">인재채용</Link>

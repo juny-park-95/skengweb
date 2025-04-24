@@ -67,6 +67,7 @@ function Footer() {
           <FooterLink href="/business#control-systems">제어 시스템 및 전자 부품</FooterLink>
           <FooterLink href="/business#instruments">계측기기 및 시험 장비</FooterLink>
           <FooterLink href="/business#materials">관련 기자재 및 부품</FooterLink>
+          <FooterLink href="/projects">주요 납품 실적</FooterLink>
         </FooterSection>
         
         <FooterSection>
