@@ -106,7 +106,7 @@ const Track = styled.div`
 
   @media (max-width: 768px) {
     gap: 6vw;                        /* 모바일은 약간 더 띄움 */
-    animation-duration: 24s;
+    animation-duration: 24s;         /* 24s → 16s로 속도 증가 */
   }
 
   @keyframes scroll {
@@ -148,6 +148,29 @@ const BarBg = styled.div`
 
   @media (max-width:480px){
     height:34px;              /* 모바일에서 한층 더 높게 */
+  }
+  
+  /* 모바일에서는 프로그레스 바 숨김 */
+  @media (max-width:768px){
+    display: none;
+  }
+`;
+
+const MobileDeliveryRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eaeaea;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  span {
+    &:last-child {
+      font-weight: 600;
+      color: #0066cc;
+    }
   }
 `;
 
