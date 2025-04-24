@@ -1,20 +1,23 @@
-import React from 'react';
+// business.js
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
+/* ────────────────────────────────────────────────── *
+ *  레이아웃 & 공통 스타일
+ * ────────────────────────────────────────────────── */
 const BusinessContainer = styled.div`
   width: 100%;
-  padding-top: 70px; /* To account for fixed header */
+  padding-top: 70px;           /* 고정 헤더 보정 */
 `;
 
 const PageBanner = styled.div`
   height: 300px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-              url('/images/business-banner.jpg') no-repeat center;
-  background-size: cover;
+  background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)),
+    url('/images/business-banner.jpg') center / cover no-repeat;
   display: flex;
-  justify-content: center;
   align-items: center;
-  color: white;
+  justify-content: center;
+  color: #fff;
 `;
 
 const BannerTitle = styled.h1`
@@ -24,10 +27,7 @@ const BannerTitle = styled.h1`
 
 const ContentSection = styled.section`
   padding: 5rem 10%;
-  
-  &:nth-child(odd) {
-    background-color: #f5f5f5;
-  }
+  &:nth-child(odd) { background: #f5f5f5; }
 `;
 
 const SectionTitle = styled.h2`
@@ -35,192 +35,278 @@ const SectionTitle = styled.h2`
   margin-bottom: 2rem;
   position: relative;
   padding-bottom: 15px;
-  
   &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background-color: #0066cc;
+    content:'';
+    position:absolute; bottom:0; left:0;
+    width:50px; height:3px; background:#0066cc;
   }
 `;
 
-const BusinessArea = styled.div`
-  margin-top: 3rem;
+/* ────────────────────────────────────────────────── *
+ *  1. 파트너사 로고 캐러셀
+ * ────────────────────────────────────────────────── */
+const LogoCarousel = styled.div`
+  overflow:hidden; background:#fff; border-radius:8px;
+  box-shadow:0 5px 15px rgba(0,0,0,.1); padding:2rem 0;
 `;
 
-const BusinessCard = styled.div`
-  display: flex;
-  flex-direction: ${props => props.reversed ? 'row-reverse' : 'row'};
-  margin-bottom: 4rem;
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const BusinessImage = styled.div`
-  flex: 1;
-  min-height: 400px;
-  background-size: cover;
-  background-position: center;
-  
-  @media (max-width: 768px) {
-    min-height: 250px;
+const Track = styled.div`
+  display:flex; gap:40px;
+  animation:scroll 30s linear infinite;
+  /* 개선: 애니메이션 순환 시 부드럽게 처리 */
+  @keyframes scroll{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(calc(-100% - 40px)); } /* 간격까지 포함해서 정확히 이동 */
   }
 `;
 
-const BusinessContent = styled.div`
-  flex: 1;
-  padding: 2.5rem;
+const LogoBox = styled.div`
+  width:180px; height:80px; display:flex; align-items:center; justify-content:center;
+  img{ max-width:100%; max-height:60px; object-fit:contain; }
+`;
+
+/* ────────────────────────────────────────────────── *
+ *  2. 파트너사 납품 현황 (Progress Bar)
+ * ────────────────────────────────────────────────── */
+const DeliveryWrap = styled.div`
+  background:#fff; border-radius:8px;
+  padding:2.5rem; box-shadow:0 5px 15px rgba(0,0,0,.1);
+  margin-top:3rem;
+`;
+
+const BarRow = styled.div` margin-bottom:1.5rem; `;
+const Header = styled.div`
+  display:flex; justify-content:space-between; font-weight:500; margin-bottom:.5rem;
+`;
+const BarBg = styled.div`
+  background:#eaeaea; border-radius:12px; overflow:hidden;
+  height:24px; /* 배경에 높이 설정 */
+  position:relative; /* 절대 위치 지정을 위한 상대 컨테이너 */
+`;
+
+// 바 컴포넌트 - 전체 100% 중 각 회사의 퍼센트를 시각적으로 표현
+const Bar = styled.div`
+  position:absolute; /* 절대 위치를 사용하여 모든 바가 같은 컨테이너에 중첩 */
+  left:0; top:0; height:100%;
+  width:${({w})=>w}%;
+  background:${({idx})=>`linear-gradient(90deg,
+    hsl(${idx*45} 70% 50%), hsl(${idx*45+30} 70% 60%))`};
+  border-radius:12px; z-index:${({idx})=>idx}; /* 인덱스가 높을수록 앞에 표시 */
+  transition:width 1s ease-out;
   
-  h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #0066cc;
+  /* 레이블 추가 */
+  &::after{
+    content:'${({w})=>w}%'; position:absolute; 
+    right:10px; top:50%; transform:translateY(-50%); 
+    color:#fff; font-weight:700; z-index:10;
   }
-  
-  p {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-    color: #444;
-  }
-  
-  ul {
-    padding-left: 20px;
-    margin-bottom: 1.5rem;
-    
-    li {
-      margin-bottom: 0.8rem;
+`;
+
+/* ────────────────────────────────────────────────── *
+ *  3. 사업 영역 카드
+ * ────────────────────────────────────────────────── */
+const AreaWrap = styled.div` margin-top:3rem; `;
+const Card = styled.div`
+  display:flex; flex-direction:${({rev})=>rev?'row-reverse':'row'};
+  background:#fff; border-radius:8px; overflow:hidden;
+  box-shadow:0 5px 15px rgba(0,0,0,.1); margin-bottom:4rem;
+  @media(max-width:768px){ flex-direction:column; }
+`;
+const Image = styled.div`
+  flex:1; min-height:400px; background:center / cover no-repeat;
+  @media(max-width:768px){ min-height:250px; }
+`;
+const Text = styled.div`
+  flex:1; padding:2.5rem;
+  h3{ font-size:1.8rem; margin-bottom:1.5rem; color:#0066cc; }
+  p{ margin-bottom:1.5rem; line-height:1.6; color:#444; }
+  ul{ padding-left:20px; li{ margin-bottom:.8rem; } }
+`;
+
+/* ────────────────────────────────────────────────── *
+ *  Component
+ * ────────────────────────────────────────────────── */
+function Business(){
+  const deliveryRef = useRef(null);
+
+  /* ──  파트너사 납품 현황 애니메이션  ── */
+  useEffect(()=>{
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.querySelectorAll('[data-width]')
+            .forEach(bar=>bar.style.width = bar.dataset.width);
+        }
+      });
+    },{threshold:.3});
+    if(deliveryRef.current) io.observe(deliveryRef.current);
+    return ()=> io.disconnect();
+  },[]);
+
+  /* 데이터 */
+  const partnerLogos = [
+    {id:1,src:'/images/nambu.png',alt:'남부발전'},
+    {id:2,src:'/images/namdong.png',alt:'남동발전'},
+    {id:3,src:'/images/dongseo.png',alt:'동서발전'},
+    {id:4,src:'/images/seobu.png',alt:'서부발전'},
+    {id:5,src:'/images/jungboo.png',alt:'중부발전'},
+    {id:6,src:'/images/CGN.png',alt:'CGN 대산전력'},
+  ];
+  // 충분한 수의 로고 복제로 끊김 없는 스크롤 효과 생성
+  const logosForScroll = [...partnerLogos, ...partnerLogos, ...partnerLogos];
+
+  const deliveries = [
+    {name:'CGN 대산전력', percent:5 },
+    {name:'남부발전',     percent:10},
+    {name:'남동발전',     percent:10},
+    {name:'동서발전',     percent:17.3},
+    {name:'서부발전',     percent:22.6},
+    {name:'중부발전',     percent:30},
+    {name:'기타',         percent:5.1},
+  ];
+
+  // 누적 퍼센트 계산 - 각 바의 시작 위치 결정에 사용
+  const calculateAccumulatedPercent = (index) => {
+    let sum = 0;
+    for (let i = 0; i < index; i++) {
+      sum += deliveries[i].percent;
     }
-  }
-`;
+    return sum;
+  };
 
-const Button = styled.a`
-  display: inline-block;
-  padding: 10px 25px;
-  background-color: #0066cc;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-  font-weight: 500;
-  
-  &:hover {
-    background-color: #0055aa;
-  }
-`;
-
-function Business() {
   return (
     <BusinessContainer>
-      <PageBanner>
-        {/* 배너 타이틀은 그대로 두거나, '전문 공급 분야' 등으로 수정 가능 */}
-        <BannerTitle>사업영역</BannerTitle> 
-      </PageBanner>
-      
+      {/* ── 배너 ─────────────────────────────────────── */}
+      <PageBanner><BannerTitle>사업영역</BannerTitle></PageBanner>
+
+      {/* ── (1) 파트너사 로고 ─────────────────────────── */}
+      <ContentSection>
+        <SectionTitle>주요 파트너사</SectionTitle>
+        <p>
+          (주)에스앤케이이엔지는 국내외 발전사를 비롯한 다양한 전력 기업과 긴밀한 협력
+          관계를 유지하며 신뢰를 쌓아왔습니다.
+        </p>
+        <LogoCarousel>
+          <Track>
+            {logosForScroll.map(l=>(
+              <LogoBox key={`${l.id}-${Math.random()}`}>
+                <img src={l.src} alt={l.alt}/>
+              </LogoBox>
+            ))}
+          </Track>
+        </LogoCarousel>
+      </ContentSection>
+
+      {/* ── (2) 파트너사 납품 현황 ────────────────────── */}
+      <ContentSection ref={deliveryRef}>
+        <SectionTitle>파트너사 납품 현황</SectionTitle>
+        <p>
+          당사가 공급한 물량을 파트너사 비율로 환산한 수치입니다
+          (총 100 기준).
+        </p>
+        <DeliveryWrap>
+          {/* 하나의 배경에 모든 바 중첩 표시 */}
+          <BarBg>
+            {deliveries.map((d,idx)=>(
+              <Bar 
+                key={d.name}
+                idx={deliveries.length - idx} /* z-index 역순으로 부여해 작은 값이 앞에 보이도록 */
+                w={d.percent} 
+                data-width={`${d.percent}%`} 
+                style={{
+                  width: 0, 
+                  left: `${calculateAccumulatedPercent(idx)}%` /* 누적 위치에 배치 */
+                }}
+              />
+            ))}
+          </BarBg>
+          
+          {/* 각 항목별 레이블 - 별도로 표시 */}
+          {deliveries.map((d,idx)=>(
+            <BarRow key={d.name} style={{marginTop: idx === 0 ? '1.5rem' : '0.5rem'}}>
+              <Header>
+                <span>{d.name}</span>
+                <span>{d.percent}%</span>
+              </Header>
+            </BarRow>
+          ))}
+        </DeliveryWrap>
+      </ContentSection>
+
+      {/* ── (3) 사업 영역 ─────────────────────────────── */}
       <ContentSection>
         <SectionTitle>(주)에스앤케이이엔지의 사업영역</SectionTitle>
-        {/* 서론 수정: 회사의 새로운 정체성 반영 */}
-        <p>(주)에스앤케이이엔지는 발전소 운영에 필수적인 전기·전자 설비 및 부품 공급 분야의 전문성을 바탕으로, 
-        고객사의 안정적이고 효율적인 전력 생산을 지원하는 신뢰할 수 있는 파트너입니다. 
-        다년간의 경험과 기술력을 통해 최적의 솔루션을 제공하며 고객 가치 실현에 기여합니다.</p>
-        
-        <BusinessArea>
-          {/* 영역 1: 주요 전기 기계/장비 */}
-          <BusinessCard>
-            {/* TODO: 이미지 URL을 관련 이미지로 변경하세요 (예: /images/power_equipment_detail.jpg) */}
-            <BusinessImage style={{ backgroundImage: `url('/images/power_equipment_detail.jpg')` }} /> 
-            <BusinessContent>
+        <p>
+          (주)에스앤케이이엔지는 발전소 핵심 설비부터 제어‧계측 솔루션까지
+          통합적으로 공급하여 고객의 안정적 전력 생산을 지원합니다.
+        </p>
+
+        <AreaWrap>
+          {/* 주요 전기 기계·장비 */}
+          <Card>
+            <Image style={{backgroundImage:`url('/images/power_equipment_detail.jpg')`}}/>
+            <Text>
               <h3>주요 전기 기계·장비</h3>
               <p>
-                발전소의 심장부인 전력 생산 시스템과 안정적인 송배전망 구축에 필요한 핵심 전기 기계 및 장비를 전문적으로 공급합니다. 
-                세계적인 제조사와의 파트너십과 엄격한 품질 관리를 통해 최고 수준의 신뢰성과 성능을 보장하는 제품만을 취급하여,
-                발전소의 무중단 운영과 효율성 향상에 기여합니다.
+                세계적 제조사와 파트너십을 통해 고신뢰 발전기·변압기·스위치기어 등을
+                공급, 무중단 운영과 효율 향상에 기여합니다.
               </p>
               <ul>
-                <li>발전기 및 터빈 관련 설비</li>
-                <li>고압/저압 변압기 및 리액터</li>
-                <li>가스절연개폐장치(GIS), 스위치기어</li>
-                <li>보호 계전 시스템 및 배전반</li>
-                <li>무정전 전원 장치(UPS) 및 축전지</li>
+                <li>발전기 및 터빈 설비</li><li>고/저압 변압기·리액터</li>
+                <li>GIS·스위치기어</li><li>보호 계전 시스템</li><li>UPS 및 축전지</li>
               </ul>
-              {/* <Button href="#">제품 보기</Button> -- 필요시 링크 수정 또는 삭제 */}
-            </BusinessContent>
-          </BusinessCard>
-          
-          {/* 영역 2: 제어 시스템 및 전자 부품 */}
-          <BusinessCard reversed> 
-            {/* TODO: 이미지 URL을 관련 이미지로 변경하세요 (예: /images/control_systems_detail.jpg) */}
-            <BusinessImage style={{ backgroundImage: `url('/images/control_systems_detail.jpg')` }} />
-            <BusinessContent>
+            </Text>
+          </Card>
+
+          {/* 제어 시스템 및 전자 부품 */}
+          <Card rev>
+            <Image style={{backgroundImage:`url('/images/control_systems_detail.jpg')`}}/>
+            <Text>
               <h3>제어 시스템 및 전자 부품</h3>
               <p>
-                발전소 운영의 효율성과 안전성을 극대화하는 최신 제어 및 자동화 솔루션을 제공합니다. 
-                분산제어시스템(DCS), 프로그래머블 로직 컨트롤러(PLC)부터 각종 센서, 액추에이터, 산업용 통신 장비에 이르기까지, 
-                운영 환경에 최적화된 솔루션과 고신뢰성 부품을 공급하여 플랜트 자동화 및 지능화를 지원합니다.
+                DCS·PLC·HMI 및 산업용 센서, 액추에이터를 통해 플랜트 자동화·지능화를
+                지원합니다.
               </p>
               <ul>
-                <li>분산제어시스템(DCS), PLC 및 HMI 시스템</li>
-                <li>각종 산업용 센서 (온도, 압력, 유량 등)</li>
-                <li>제어 밸브 및 액추에이터</li>
-                <li>인버터 및 드라이브 시스템</li>
-                <li>산업용 네트워크 및 통신 장비</li>
+                <li>DCS, PLC, HMI</li><li>온도·압력·유량 센서</li>
+                <li>제어 밸브·액추에이터</li><li>인버터·드라이브</li>
+                <li>산업용 네트워크 장비</li>
               </ul>
-              {/* <Button href="#">제품 보기</Button> -- 필요시 링크 수정 또는 삭제 */}
-            </BusinessContent>
-          </BusinessCard>
-          
-          {/* 영역 3: 계측기기 및 시험 장비 */}
-          <BusinessCard>
-            {/* TODO: 이미지 URL을 관련 이미지로 변경하세요 (예: /images/instruments_detail.jpg) */}
-            <BusinessImage style={{ backgroundImage: `url('/images/instruments_detail.jpg')` }} /> 
-            <BusinessContent>
+            </Text>
+          </Card>
+
+          {/* 계측기기 및 시험 장비 */}
+          <Card>
+            <Image style={{backgroundImage:`url('/images/instruments_detail.jpg')`}}/>
+            <Text>
               <h3>계측기기 및 시험 장비</h3>
               <p>
-                발전 설비의 상태를 정확하게 진단하고 최적의 성능을 유지하기 위한 필수적인 계측 및 시험 장비를 공급합니다. 
-                정밀 계측기기부터 휴대용 진단 장비, 교정 장비까지 다양한 제품군을 통해 
-                예방 정비와 신속한 문제 해결을 지원하여 설비의 신뢰도와 안전성을 높입니다.
+                정밀 계측·진단 장비를 제공하여 예방 정비와 설비 신뢰성 향상을
+                지원합니다.
               </p>
               <ul>
-                <li>전력 분석기 및 품질 측정기</li>
-                <li>절연 저항계 및 접지 저항계</li>
-                <li>온도, 압력, 유량 등 공정 계측기</li>
-                <li>진동 분석기 및 예방 진단 장비</li>
-                <li>각종 휴대용 시험 및 측정 장비</li>
+                <li>전력 분석기·품질 측정기</li><li>절연/접지 저항계</li>
+                <li>공정 계측기 (T/P/F 등)</li><li>진동 분석기</li>
+                <li>휴대용 시험 장비</li>
               </ul>
-              {/* <Button href="#">제품 보기</Button> -- 필요시 링크 수정 또는 삭제 */}
-            </BusinessContent>
-          </BusinessCard>
-          
-          {/* 영역 4: 관련 기자재 및 부품 */}
-          <BusinessCard reversed> 
-            {/* TODO: 이미지 URL을 관련 이미지로 변경하세요 (예: /images/materials_parts_detail.jpg) */}
-            <BusinessImage style={{ backgroundImage: `url('/images/materials_parts_detail.jpg')` }} /> 
-            <BusinessContent>
+            </Text>
+          </Card>
+
+          {/* 관련 기자재 및 부품 */}
+          <Card rev>
+            <Image style={{backgroundImage:`url('/images/materials_parts_detail.jpg')`}}/>
+            <Text>
               <h3>관련 기자재 및 부품</h3>
               <p>
-                발전소의 원활한 운영과 유지보수에 필요한 모든 종류의 관련 기자재와 부품을 포괄적으로 취급합니다. 
-                고품질의 케이블, 커넥터, 배관 자재부터 신속한 교체가 필요한 예비 부품까지, 
-                고객의 요구에 맞춘 안정적인 공급망과 경쟁력 있는 가격으로 최상의 서비스를 제공합니다.
+                케이블·커넥터·밸브 등 소모성 부품까지 안정적 공급망으로 즉시 지원합니다.
               </p>
               <ul>
-                <li>전력 및 제어 케이블, 광케이블</li>
-                <li>각종 커넥터, 터미널 및 배선 자재</li>
-                <li>밸브, 피팅 등 배관 관련 자재</li>
-                <li>필터, 베어링 등 소모성 부품</li>
-                <li>각종 공구 및 안전 장비</li>
+                <li>전력·제어·광 케이블</li><li>커넥터·배선 자재</li>
+                <li>배관 밸브·피팅</li><li>필터·베어링</li><li>공구·안전장비</li>
               </ul>
-              {/* <Button href="#">제품 보기</Button> -- 필요시 링크 수정 또는 삭제 */}
-            </BusinessContent>
-          </BusinessCard>
-        </BusinessArea>
+            </Text>
+          </Card>
+        </AreaWrap>
       </ContentSection>
     </BusinessContainer>
   );
