@@ -42,66 +42,143 @@ const SectionTitle = styled.h2`
   }
 `;
 
-/* ────────────────────────────────────────────────── *
- *  1. 파트너사 로고 캐러셀
- * ────────────────────────────────────────────────── */
+/* ──────────────────────────────────────────── *
+ * 1. 파트너사 로고 캐러셀
+ * ──────────────────────────────────────────── */
+
+/* ① 전체 캐러셀 패딩을 조금 줄여 화면 활용도 ↑ */
 const LogoCarousel = styled.div`
-  overflow:hidden; background:#fff; border-radius:8px;
-  box-shadow:0 5px 15px rgba(0,0,0,.1); padding:2rem 0;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.1);
+  padding: 4rem 0;      /* ⬅ 5rem → 4rem */
+  position: relative;
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 3rem 0;    /* 모바일은 동일 */
+  }
+
+  /* … before/after 그라데이션은 동일 … */
 `;
 
-const Track = styled.div`
-  display:flex; gap:40px;
-  animation:scroll 30s linear infinite;
-  /* 개선: 애니메이션 순환 시 부드럽게 처리 */
-  @keyframes scroll{
-    0%{ transform:translateX(0); }
-    100%{ transform:translateX(calc(-100% - 40px)); } /* 간격까지 포함해서 정확히 이동 */
+/* ② 로고 박스 & 이미지 리스폰시브 사이징 */
+const LogoBox = styled.div`
+  flex: 0 0 auto;                 /* flex-item 고정 */
+  /*     min     선호     최대  */
+  width:  clamp(220px, 22vw, 360px);
+  height: clamp(120px, 12vw, 200px);
+  aspect-ratio: 16 / 9;           /* 일정 비율 유지 → 세로값 자동 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;                  /* 크기에 따라 자동 여백 */
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: all .3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+    transform: translateY(-4px);
+  }
+
+  /* 초소형 기기(≤480px)에서는 조금 더 줄임 */
+  @media (max-width: 480px) {
+    width:  clamp(160px, 60vw, 240px);
+  }
+
+  /* 로고 이미지 */
+  img {
+    width:  90%;       /* 가로 기준 채움 */
+    height: 90%;
+    object-fit: contain;
   }
 `;
 
-const LogoBox = styled.div`
-  width:180px; height:80px; display:flex; align-items:center; justify-content:center;
-  img{ max-width:100%; max-height:60px; object-fit:contain; }
+/* ③ 가로 간격이 너무 넓다면 Track gap 조정 */
+const Track = styled.div`
+  display: flex;
+  gap: 4vw;                          /* 80px → 상대값 */
+  animation: scroll 28s linear infinite;
+  padding: 0 40px;
+
+  @media (max-width: 768px) {
+    gap: 6vw;                        /* 모바일은 약간 더 띄움 */
+    animation-duration: 24s;
+  }
+
+  @keyframes scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(-100% - 4vw)); }
+  }
 `;
 
 /* ────────────────────────────────────────────────── *
  *  2. 파트너사 납품 현황 (Progress Bar)
  * ────────────────────────────────────────────────── */
 const DeliveryWrap = styled.div`
-  background:#fff; border-radius:8px;
-  padding:2.5rem; box-shadow:0 5px 15px rgba(0,0,0,.1);
+  background:#fff;
+  border-radius:8px;
+  padding:2.5rem;
+  box-shadow:0 5px 15px rgba(0,0,0,.1);
   margin-top:3rem;
 `;
 
 const BarRow = styled.div` margin-bottom:1.5rem; `;
+
+/* =========[ UPDATED ]========= */
 const Header = styled.div`
-  display:flex; justify-content:space-between; font-weight:500; margin-bottom:.5rem;
-`;
-const BarBg = styled.div`
-  background:#eaeaea; border-radius:12px; overflow:hidden;
-  height:24px; /* 배경에 높이 설정 */
-  position:relative; /* 절대 위치 지정을 위한 상대 컨테이너 */
+  display:flex;
+  justify-content:space-between;
+  font-weight:500;
+  margin-bottom:.5rem;
+  /* 화면폭에 따라 자동 축소 */
+  font-size:clamp(0.9rem, 3.3vw, 1rem);
 `;
 
-// 바 컴포넌트 - 전체 100% 중 각 회사의 퍼센트를 시각적으로 표현
-const Bar = styled.div`
-  position:absolute; /* 절대 위치를 사용하여 모든 바가 같은 컨테이너에 중첩 */
-  left:0; top:0; height:100%;
-  width:${({w})=>w}%;
-  background:${({idx})=>`linear-gradient(90deg,
-    hsl(${idx*45} 70% 50%), hsl(${idx*45+30} 70% 60%))`};
-  border-radius:12px; z-index:${({idx})=>idx}; /* 인덱스가 높을수록 앞에 표시 */
-  transition:width 1s ease-out;
-  
-  /* 레이블 추가 */
-  &::after{
-    content:'${({w})=>w}%'; position:absolute; 
-    right:10px; top:50%; transform:translateY(-50%); 
-    color:#fff; font-weight:700; z-index:10;
+/* =========[ UPDATED ]========= */
+const BarBg = styled.div`
+  background:#eaeaea;
+  border-radius:12px;
+  overflow:hidden;
+  height:28px;                /* 24px → 28px */
+  position:relative;
+
+  @media (max-width:480px){
+    height:34px;              /* 모바일에서 한층 더 높게 */
   }
 `;
 
+/* =========[ UPDATED ]========= */
+const Bar = styled.div`
+  position:absolute;
+  left:0; top:0; height:100%;
+  width:${({w})=>w}%;
+  background:${({idx})=>`linear-gradient(
+    90deg,
+    hsl(${idx*45} 70% 45%),
+    hsl(${idx*45+25} 70% 58%)
+  )`};                         /* 명도 ↓ 글자 대비 ↑ */
+  border-radius:12px;
+  z-index:${({idx})=>idx};
+  transition:width 1s ease-out;
+
+  /* 퍼센티지 라벨 */
+  &::after{
+    content:'${({w})=>w}%';
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    font-weight:700;
+    color:#fff;
+    font-size:clamp(11px, 3.2vw, 14px);  /* 데스크톱~모바일 */
+    text-shadow:0 0 4px rgba(0,0,0,.45);
+    pointer-events:none;
+  }
+`;
 /* ────────────────────────────────────────────────── *
  *  3. 사업 영역 카드
  * ────────────────────────────────────────────────── */
