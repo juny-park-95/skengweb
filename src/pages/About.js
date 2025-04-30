@@ -526,7 +526,7 @@ function About() {
                 style={{ backgroundImage: `url('/images/iso_korean.png')` }} 
               />
               <CertificationContent>
-                <h3>ISO 9001:2015 인증 (국문)</h3>
+                <h3>ISO 9001:2008 / KS Q ISO 9001 : 2009 인증 (국문)</h3>
                 <p>품질경영시스템 국제 표준 인증</p>
                 <p>제품 및 서비스의 국제 품질 표준 준수를 인증받아 고객에게 일관된 품질의 제품과 서비스를 제공합니다.</p>
                 <span className="cert-info">인증기관: 한국표준협회(ITS) | 인증번호: ITS-KQ-00563</span>
@@ -538,7 +538,7 @@ function About() {
                 style={{ backgroundImage: `url('/images/iso_eng.png')` }} 
               />
               <CertificationContent>
-                <h3>ISO 9001:2015 Certificate (English)</h3>
+                <h3>ISO 9001:2008 / KS Q ISO 9001 : 2009 Certificate (English)</h3>
                 <p>International Standard for Quality Management Systems</p>
                 <p>Our company is certified to provide consistent quality products and services according to international quality standards.</p>
                 <span className="cert-info">Certification Body: ITS | Certificate No: ITS-KQ-00563</span>
