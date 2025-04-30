@@ -176,11 +176,28 @@ const TableHead = styled.thead`
   
   th {
     padding: 1rem;
-    text-align: left;
     font-weight: 600;
     
-    &:first-child {
+    /* 각 열에 맞는 정렬 적용 */
+    &:nth-child(1) {
       text-align: center;
+      width: 70px;
+    }
+    &:nth-child(2) {
+      text-align: left;
+      width: 20%;
+    }
+    &:nth-child(3) {
+      text-align: left;
+      width: 23%;
+    }
+    &:nth-child(4) {
+      text-align: left;
+      width: 40%;
+    }
+    &:nth-child(5) {
+      text-align: center;
+      width: 100px;
     }
   }
 `;
@@ -203,10 +220,23 @@ const TableBody = styled.tbody`
     padding: 1rem;
     vertical-align: top;
     
-    &:first-child {
+    /* 각 열에 맞는 정렬 적용 */
+    &:nth-child(1) {
       text-align: center;
       font-weight: 600;
       color: #0066cc;
+    }
+    &:nth-child(2) {
+      text-align: left;
+    }
+    &:nth-child(3) {
+      text-align: left;
+    }
+    &:nth-child(4) {
+      text-align: left;
+    }
+    &:nth-child(5) {
+      text-align: center;
     }
   }
 `;
