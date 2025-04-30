@@ -202,13 +202,13 @@ const AwardCard = styled.div`
 `;
 
 const AwardImage = styled.div`
-  width: 100%;
-  height: 250px;
+  height: 200px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   background-color: #f9f9f9;
-  border-bottom: 1px solid #eaeaea;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 `;
 
 const AwardContent = styled.div`
@@ -221,16 +221,78 @@ const AwardContent = styled.div`
   }
   
   p {
-    color: #666;
+    margin-bottom: 0.8rem;
     line-height: 1.6;
-    margin-bottom: 0.5rem;
+    color: #555;
   }
   
   .award-date {
-    font-weight: 500;
-    color: #333;
-    margin-top: 1rem;
     display: block;
+    margin-top: 1rem;
+    color: #888;
+    font-size: 0.9rem;
+  }
+`;
+
+const CertificationSection = styled.div`
+  margin-top: 3rem;
+`;
+
+const CertificationsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const CertificationCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const CertificationImage = styled.div`
+  height: 300px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+`;
+
+const CertificationContent = styled.div`
+  padding: 1.5rem;
+  
+  h3 {
+    font-size: 1.3rem;
+    color: #0066cc;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    color: #555;
+  }
+  
+  .cert-info {
+    display: block;
+    margin-top: 1rem;
+    color: #888;
+    font-size: 0.9rem;
   }
 `;
 
@@ -349,22 +411,68 @@ function About() {
           <Timeline>
             <TimelineItem>
               <TimelineContent>
-                <h3>2015년 2월</h3>
-                <p>사명 변경 – 주식회사 에스앤케이이엔지</p>
+                <h3>2025년</h3>
+                <p>• 디지털 제어·분석 플랫폼 구축</p>
+                <p>– 중부발전·KPS 디지털 컨버터·레벨전송기 대규모 공급</p>
               </TimelineContent>
             </TimelineItem>
 
             <TimelineItem>
               <TimelineContent>
-                <h3>2013년 8월</h3>
-                <p>법인 설립 – 주식회사 에스케이이엔지</p>
+                <h3>2023년</h3>
+                <p>• AI·로봇 제어시스템 상용화</p>
+                <p>– 중부발전 지능형 IoT 로봇 시스템 (₩52M)</p>
               </TimelineContent>
             </TimelineItem>
 
             <TimelineItem>
               <TimelineContent>
-                <h3>2007년 4월</h3>
-                <p>설립 – 에스케이이엔지</p>
+                <h3>2020년</h3>
+                <p>• 스마트 팩토리용 계측장비 확대</p>
+                <p>– 대산전력 전기팀 계측장비 & 수공구 패키지 (₩32M)</p>
+              </TimelineContent>
+            </TimelineItem>
+
+            <TimelineItem>
+              <TimelineContent>
+                <h3>2017년</h3>
+                <p>• IoT·스마트 제어시장 진출</p>
+                <p>– 중부발전 FAN 계통 온도 TX, 자동화 액추에이터 공급</p>
+              </TimelineContent>
+            </TimelineItem>
+
+            <TimelineItem>
+              <TimelineContent>
+                <h3>2015년</h3>
+                <p>• 고신뢰성 트랜스미터 솔루션 확산</p>
+                <p>– 중부발전 Transmitter 9종 (₩90M)</p>
+                <p>• 사명 변경 – 주식회사 에스앤케이이엔지</p>
+              </TimelineContent>
+            </TimelineItem>
+
+            <TimelineItem>
+              <TimelineContent>
+                <h3>2013년</h3>
+                <p>• 초음파·레이더 계측기 대량 공급</p>
+                <p>– 서부발전·중부발전 초음파 Level Tx 대량 프로젝트</p>
+                <p>• 법인 설립 – 주식회사 에스케이이엔지</p>
+              </TimelineContent>
+            </TimelineItem>
+
+            <TimelineItem>
+              <TimelineContent>
+                <h3>2010년</h3>
+                <p>• 핵심 제어설비 공급 역량 검증</p>
+                <p>– 남동발전 탈황제어 설비용 Speed Switch (₩260M)</p>
+              </TimelineContent>
+            </TimelineItem>
+
+            <TimelineItem>
+              <TimelineContent>
+                <h3>2007년</h3>
+                <p>• 첫 대형 플랜트 수주</p>
+                <p>– 중부발전 295품목 공급 (₩150M 규모)</p>
+                <p>• 설립 – 에스케이이엔지</p>
               </TimelineContent>
             </TimelineItem>
           </Timeline>
@@ -399,6 +507,45 @@ function About() {
             </AwardCard>
           </AwardsList>
         </AwardsSection>
+      </ContentSection>
+
+      {/* ========================================================================= */}
+      {/* ISO 인증 */}
+      {/* ========================================================================= */}
+      <ContentSection>
+        <SectionTitle>품질 인증</SectionTitle>
+        <p>
+          (주)에스앤케이이엔지는 국제 표준화 기구(ISO)의 품질 경영 시스템 인증을 획득하여 
+          제품과 서비스의 일관된 품질을 보장하고 있습니다.
+        </p>
+        
+        <CertificationSection>
+          <CertificationsGrid>
+            <CertificationCard>
+              <CertificationImage 
+                style={{ backgroundImage: `url('/images/iso_korean.png')` }} 
+              />
+              <CertificationContent>
+                <h3>ISO 9001:2015 인증 (국문)</h3>
+                <p>품질경영시스템 국제 표준 인증</p>
+                <p>제품 및 서비스의 국제 품질 표준 준수를 인증받아 고객에게 일관된 품질의 제품과 서비스를 제공합니다.</p>
+                <span className="cert-info">인증기관: 한국표준협회(ITS) | 인증번호: ITS-KQ-00563</span>
+              </CertificationContent>
+            </CertificationCard>
+            
+            <CertificationCard>
+              <CertificationImage 
+                style={{ backgroundImage: `url('/images/iso_eng.png')` }} 
+              />
+              <CertificationContent>
+                <h3>ISO 9001:2015 Certificate (English)</h3>
+                <p>International Standard for Quality Management Systems</p>
+                <p>Our company is certified to provide consistent quality products and services according to international quality standards.</p>
+                <span className="cert-info">Certification Body: ITS | Certificate No: ITS-KQ-00563</span>
+              </CertificationContent>
+            </CertificationCard>
+          </CertificationsGrid>
+        </CertificationSection>
       </ContentSection>
 
       {/* ========================================================================= */}

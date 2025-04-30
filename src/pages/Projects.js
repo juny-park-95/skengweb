@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 /*
@@ -155,8 +155,365 @@ const Tag = styled.span`
   font-weight: 500;
 `;
 
+const ContractHistorySection = styled.div`
+  margin-top: 4rem;
+  overflow-x: auto;
+`;
+
+const ContractTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+`;
+
+const TableHead = styled.thead`
+  background-color: #0066cc;
+  color: white;
+  
+  th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    
+    &:first-child {
+      text-align: center;
+    }
+  }
+`;
+
+const TableBody = styled.tbody`
+  tr {
+    border-bottom: 1px solid #eaeaea;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: #f9f9f9;
+    }
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  td {
+    padding: 1rem;
+    vertical-align: top;
+    
+    &:first-child {
+      text-align: center;
+      font-weight: 600;
+      color: #0066cc;
+    }
+  }
+`;
+
+const ProjectScale = styled.span`
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background-color: ${props => {
+    if (props.scale === 'large') return '#e6f7ee';
+    if (props.scale === 'medium') return '#fff4e6';
+    return '#f0f0f0';
+  }};
+  color: ${props => {
+    if (props.scale === 'large') return '#00a86b';
+    if (props.scale === 'medium') return '#ff9c33';
+    return '#666666';
+  }};
+`;
+
+const FilterButtons = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+`;
+
+const FilterButton = styled.button`
+  padding: 0.6rem 1.2rem;
+  background-color: ${props => props.active ? '#0066cc' : '#e6f0ff'};
+  color: ${props => props.active ? '#fff' : '#0066cc'};
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: ${props => props.active ? '#0055aa' : '#d1e5ff'};
+  }
+`;
+
 // --------------------------- Component --------------------------- //
 function Projects() {
+  // 필터링을 위한 상태 관리
+  const [activeFilter, setActiveFilter] = useState('전체');
+  
+  // 필터 변경 핸들러
+  const handleFilterChange = (filter) => {
+    setActiveFilter(filter);
+  };
+  
+  // 계약 데이터 (실제 프로젝트에서는 별도 파일이나 API로 관리하는 것이 좋습니다)
+  const contractData = [
+    {
+      year: 2025,
+      client: '한국중부발전㈜',
+      contractNumber: '소액(보일러전기)-20250115',
+      items: '3–6호기 보일러 저압전동기',
+      scale: 'small'
+    },
+    {
+      year: 2025,
+      client: '한전KPS㈜',
+      contractNumber: '제R102500447호',
+      items: 'DC-DC Converter Power Supply',
+      scale: 'small'
+    },
+    {
+      year: 2024,
+      client: '한국중부발전㈜',
+      contractNumber: '제2024-3',
+      items: 'Pr Switch 등 4품목',
+      scale: 'small'
+    },
+    {
+      year: 2024,
+      client: '한국동서발전㈜',
+      contractNumber: '제S515330-00514호',
+      items: '8# 제어설비 정비용',
+      scale: 'small'
+    },
+    {
+      year: 2023,
+      client: '씨지앤 대산전력㈜',
+      contractNumber: '제PO-883호',
+      items: 'PUMP 스페어파트',
+      scale: 'medium'
+    },
+    {
+      year: 2023,
+      client: '현대그린파워㈜',
+      contractNumber: '제20231158호',
+      items: 'VCB 오조작 방지용 경보장치 (1–8호기)',
+      scale: 'small'
+    },
+    {
+      year: 2022,
+      client: '씨지앤 대산전력㈜',
+      contractNumber: '제PO-560호',
+      items: 'I&S ASH 및 소방설비 스페어파트',
+      scale: 'medium'
+    },
+    {
+      year: 2022,
+      client: '한국서부발전㈜',
+      contractNumber: '제R02222100821호',
+      items: '군산 O/H 제어전문자재',
+      scale: 'large'
+    },
+    {
+      year: 2021,
+      client: '한국서부발전㈜',
+      contractNumber: '제2000068313호',
+      items: '태안5·6호기 암모니아 압력전송기',
+      scale: 'small'
+    },
+    {
+      year: 2021,
+      client: '씨지앤 대산전력㈜',
+      contractNumber: '제PO-210801호',
+      items: 'HRSG 송신기 24SET 외 11종',
+      scale: 'medium'
+    },
+    {
+      year: 2020,
+      client: '한국중부발전㈜',
+      contractNumber: '보령2발 제어기술부-1308',
+      items: '3.6호기 압력전송기',
+      scale: 'small'
+    },
+    {
+      year: 2020,
+      client: '씨지앤 대산전력㈜',
+      contractNumber: '제PO-DB-200608호',
+      items: '전기팀 계측장비 및 수공구 (샘플검사 자동화)',
+      scale: 'medium'
+    },
+    {
+      year: 2019,
+      client: '한국서부발전㈜',
+      contractNumber: '제R102001036호',
+      items: '#1.2 HRSG 온도전송기',
+      scale: 'small'
+    },
+    {
+      year: 2018,
+      client: '한국중부발전㈜',
+      contractNumber: '제R051801121호',
+      items: '현장 제어설비 경상자재',
+      scale: 'medium'
+    },
+    {
+      year: 2018,
+      client: '한국서부발전㈜',
+      contractNumber: '제R021-800272호',
+      items: 'Solenoid Valve 등 21종 (IGCC 플랜트)',
+      scale: 'large'
+    },
+    {
+      year: 2017,
+      client: '한국서부발전㈜',
+      contractNumber: '제C0217000371호',
+      items: '압력전송기 16EA',
+      scale: 'small'
+    },
+    {
+      year: 2017,
+      client: '한국중부발전㈜',
+      contractNumber: '제C051700463호',
+      items: 'BRG TEMP TX (4.6호기 FAN 계통)',
+      scale: 'medium'
+    },
+    {
+      year: 2016,
+      client: '한국중부발전㈜',
+      contractNumber: '제R051-600050호',
+      items: 'RTD & WELL Transmitter 126SET',
+      scale: 'large'
+    },
+    {
+      year: 2015,
+      client: '한국가스공사㈜',
+      contractNumber: '제2015-HD-0115호',
+      items: '해수위 검출용 레벨전송기',
+      scale: 'medium'
+    },
+    {
+      year: 2015,
+      client: '한국중부발전㈜',
+      contractNumber: '제R051-500271호',
+      items: 'Transmitter 9품목',
+      scale: 'large'
+    },
+    {
+      year: 2014,
+      client: '한국중부발전㈜',
+      contractNumber: '제R051-400809호',
+      items: 'Guided Radar Transmitter 등 4품목',
+      scale: 'large'
+    },
+    {
+      year: 2014,
+      client: '한국서부발전㈜',
+      contractNumber: '제R021-400640호',
+      items: '차압전송기 등 203품목',
+      scale: 'large'
+    },
+    {
+      year: 2013,
+      client: '한국중부발전㈜',
+      contractNumber: '제R051-301146호',
+      items: 'GWR 레벨전송기 5품목',
+      scale: 'medium'
+    },
+    {
+      year: 2013,
+      client: '한국서부발전㈜',
+      contractNumber: '제R021-300151호',
+      items: '초음파 Level Tx 등 175품목',
+      scale: 'large'
+    },
+    {
+      year: 2012,
+      client: '한국동서발전㈜',
+      contractNumber: '제R081-200303호',
+      items: '가이드 레이다 수위전송기 등 10종',
+      scale: 'medium'
+    },
+    {
+      year: 2012,
+      client: '한국서부발전㈜',
+      contractNumber: '제R021-200173호',
+      items: 'Data Logger 등 24종',
+      scale: 'medium'
+    },
+    {
+      year: 2011,
+      client: '한국동서발전㈜',
+      contractNumber: '제R081-100273호',
+      items: '볼베어링 외 149종',
+      scale: 'large'
+    },
+    {
+      year: 2011,
+      client: '한국중부발전㈜',
+      contractNumber: '제R051-100329호',
+      items: 'GWR Level Transmitter 28Set',
+      scale: 'large'
+    },
+    {
+      year: 2010,
+      client: '한국남동발전㈜',
+      contractNumber: '제R061-000011호',
+      items: '#1 탈황제어설비 Speed Switch 외 98종',
+      scale: 'large'
+    },
+    {
+      year: 2010,
+      client: '한국남동발전㈜',
+      contractNumber: '제R061-000254호',
+      items: '#2 Mechanical Trip Solenoid Valve 외 102종',
+      scale: 'large'
+    },
+    {
+      year: 2009,
+      client: '한국중부발전㈜',
+      contractNumber: '제R050-909699호',
+      items: 'PLC 베이스모듈 외 32품목',
+      scale: 'large'
+    },
+    {
+      year: 2009,
+      client: '한국중부발전㈜',
+      contractNumber: '제R050-901764호',
+      items: 'BRG #1 Cable 외 78품목',
+      scale: 'large'
+    },
+    {
+      year: 2007,
+      client: '한국중부발전㈜',
+      contractNumber: '제R050-703870호',
+      items: 'Bolt Nut Washer 등 295품목',
+      scale: 'large'
+    }
+  ];
+  
+  // 필터링된 계약 데이터
+  const filteredContracts = 
+    activeFilter === '전체' 
+      ? contractData 
+      : contractData.filter(contract => {
+          if (activeFilter === '중부발전') return contract.client.includes('중부발전');
+          if (activeFilter === '서부발전') return contract.client.includes('서부발전');
+          if (activeFilter === '동서발전') return contract.client.includes('동서발전');
+          if (activeFilter === '남동발전') return contract.client.includes('남동발전');
+          if (activeFilter === '기타') {
+            return !contract.client.includes('중부발전') && 
+                   !contract.client.includes('서부발전') && 
+                   !contract.client.includes('동서발전') && 
+                   !contract.client.includes('남동발전');
+          }
+          return true;
+        });
+  
   return (
     <ProjectsContainer>
       {/* ========================================================================= */}
@@ -359,6 +716,92 @@ function Projects() {
           
           {/* 추가 프로젝트 카드 자리 - 향후 확장 가능 */}
         </ProjectsGrid>
+      </ContentSection>
+
+      {/* ========================================================================= */}
+      {/* 계약 이력 */}
+      {/* ========================================================================= */}
+      <ContentSection>
+        <SectionTitle>계약 이력</SectionTitle>
+        <SectionDescription>
+          2007년부터 현재까지 국내 주요 발전소 및 산업 현장에 납품한 
+          제품 및 서비스의 상세 계약 이력입니다.
+        </SectionDescription>
+        
+        <FilterButtons>
+          <FilterButton 
+            active={activeFilter === '전체'} 
+            onClick={() => handleFilterChange('전체')}
+          >
+            전체
+          </FilterButton>
+          <FilterButton 
+            active={activeFilter === '중부발전'} 
+            onClick={() => handleFilterChange('중부발전')}
+          >
+            중부발전
+          </FilterButton>
+          <FilterButton 
+            active={activeFilter === '서부발전'} 
+            onClick={() => handleFilterChange('서부발전')}
+          >
+            서부발전
+          </FilterButton>
+          <FilterButton 
+            active={activeFilter === '동서발전'} 
+            onClick={() => handleFilterChange('동서발전')}
+          >
+            동서발전
+          </FilterButton>
+          <FilterButton 
+            active={activeFilter === '남동발전'} 
+            onClick={() => handleFilterChange('남동발전')}
+          >
+            남동발전
+          </FilterButton>
+          <FilterButton 
+            active={activeFilter === '기타'} 
+            onClick={() => handleFilterChange('기타')}
+          >
+            기타
+          </FilterButton>
+        </FilterButtons>
+        
+        <ContractHistorySection>
+          <ContractTable>
+            <TableHead>
+              <tr>
+                <th>연도</th>
+                <th>발주처</th>
+                <th>계약번호</th>
+                <th>주요 품명</th>
+                <th>규모</th>
+              </tr>
+            </TableHead>
+            <TableBody>
+              {filteredContracts.map((contract, index) => (
+                <tr key={index}>
+                  <td>{contract.year}</td>
+                  <td>{contract.client}</td>
+                  <td>{contract.contractNumber}</td>
+                  <td>{contract.items}</td>
+                  <td>
+                    <ProjectScale scale={contract.scale}>
+                      {contract.scale === 'large' ? '대형' : contract.scale === 'medium' ? '중형' : '소형'}
+                    </ProjectScale>
+                  </td>
+                </tr>
+              ))}
+              {filteredContracts.length === 0 && (
+                <tr>
+                  <td colSpan={5} style={{ textAlign: 'center', padding: '2rem' }}>
+                    검색 결과가 없습니다.
+                  </td>
+                </tr>
+              )}
+            </TableBody>
+          </ContractTable>
+        </ContractHistorySection>
       </ContentSection>
 
     </ProjectsContainer>
