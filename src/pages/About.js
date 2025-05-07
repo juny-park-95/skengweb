@@ -249,6 +249,87 @@ const CertificationsGrid = styled.div`
   }
 `;
 
+// 회사 관련 문서 컨테이너 및 카드 스타일 정의
+const CompanyDocumentsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const DocumentCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 320px;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  @media (max-width: 768px) {
+    width: 90%;
+    max-width: 320px;
+  }
+`;
+
+const DocumentTitle = styled.h3`
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #0066cc;
+  text-align: center;
+`;
+
+const DocumentImage = styled.img`
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const DownloadLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 15px;
+  background-color: #0066cc;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  
+  i {
+    margin-left: 8px;
+  }
+  
+  &:hover {
+    background-color: #0055aa;
+    transform: translateY(-2px);
+  }
+`;
+
 const CertificationCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -377,6 +458,18 @@ function About() {
           (주)에스앤케이이엔지는 <strong>두온시스템(주) 발전소 대리점</strong>입니다.
         </p>
         {/* 기타 설명 및 Vision, Mission, Core Values 내용 삭제됨 */}
+        
+        <CompanyDocumentsContainer>
+          <DocumentCard>
+            <DocumentTitle>사업자 등록증</DocumentTitle>
+            <DocumentImage src="/images/saup.png" alt="사업자 등록증" />
+          </DocumentCard>
+          
+          <DocumentCard>
+            <DocumentTitle>중소기업 확인서 (소상공인)</DocumentTitle>
+            <DocumentImage src="/images/sosang.png" alt="중소기업 확인서 (소상공인)" />
+          </DocumentCard>
+        </CompanyDocumentsContainer>
       </ContentSection>
 
       {/* ========================================================================= */}

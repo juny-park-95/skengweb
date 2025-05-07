@@ -27,7 +27,7 @@ const FooterContent = styled.div`
   
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1rem;
   }
 `;
 
@@ -43,6 +43,17 @@ const FooterSection = styled.div`
   @media (max-width: 992px) {
     min-width: 180px;
     margin-right: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    min-width: unset;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 2rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 `;
 
@@ -97,6 +108,16 @@ const ContactItem = styled.div`
   
   span {
     font-size: 15px;
+    word-break: keep-all;
+    line-height: 1.4;
+  }
+  
+  @media (max-width: 480px) {
+    align-items: flex-start;
+    
+    svg {
+      margin-top: 3px;
+    }
   }
 `;
 
@@ -132,32 +153,6 @@ const FooterBottom = styled.div`
   }
 `;
 
-const SocialLinks = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-`;
-
-const SocialIcon = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #333;
-  color: #fff;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background-color: #0066cc;
-    transform: translateY(-3px);
-  }
-  
-  svg {
-    font-size: 18px;
-  }
-`;
 
 function Footer() {
   return (
@@ -227,7 +222,6 @@ function Footer() {
           <FooterTitle>고객센터</FooterTitle>
           <FooterLink href="/center#support">고객지원</FooterLink>
           <FooterLink href="/center#faq">자주 묻는 질문</FooterLink>
-          <FooterLink href="/center#contact">문의하기</FooterLink>
         </FooterSection>
       </FooterContent>
       

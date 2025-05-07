@@ -11,6 +11,8 @@ import HumanResources from './pages/HumanResources';
 import Center from './pages/Center';
 import Location from './pages/Location';
 import Footer from './components/Footer';
+import ScrollToHash from './components/ScrollToHash';
+import PageTransition from './components/PageTransition';
 
 // ScrollToTop component that uses smooth scrolling
 function ScrollToTop() {
@@ -98,15 +100,44 @@ function App() {
     <Router>
       <div className="App">
         <ScrollToTop />
+        <ScrollToHash />
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/business" element={<Business />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/hr" element={<HumanResources />} />
-          <Route path="/center" element={<Center />} />
-          <Route path="/location" element={<Location />} />
+          <Route path="/" element={
+            <PageTransition>
+              <Home />
+            </PageTransition>
+          } />
+          <Route path="/about" element={
+            <PageTransition>
+              <About />
+            </PageTransition>
+          } />
+          <Route path="/business" element={
+            <PageTransition>
+              <Business />
+            </PageTransition>
+          } />
+          <Route path="/projects" element={
+            <PageTransition>
+              <Projects />
+            </PageTransition>
+          } />
+          <Route path="/hr" element={
+            <PageTransition>
+              <HumanResources />
+            </PageTransition>
+          } />
+          <Route path="/center" element={
+            <PageTransition>
+              <Center />
+            </PageTransition>
+          } />
+          <Route path="/location" element={
+            <PageTransition>
+              <Location />
+            </PageTransition>
+          } />
         </Routes>
         <Footer />
         <ScrollToTopButton 

@@ -160,66 +160,6 @@ const StepDescription = styled.p`
   max-width: 200px;
 `;
 
-const WelfareSection = styled.div`
-  margin-top: 3rem;
-`;
-
-const WelfareGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-`;
-
-const WelfareCard = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  
-  h3 {
-    font-size: 1.3rem;
-    color: #0066cc;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    
-    svg {
-      margin-right: 10px;
-    }
-  }
-  
-  ul {
-    padding-left: 20px;
-    
-    li {
-      margin-bottom: 0.8rem;
-      color: #555;
-    }
-  }
-`;
-
-const RecruitmentButton = styled.a`
-  display: inline-block;
-  padding: 15px 30px;
-  background-color: #0066cc;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-  font-weight: 500;
-  font-size: 1.1rem;
-  margin-top: 3rem;
-  
-  &:hover {
-    background-color: #0055aa;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  text-align: center;
-  margin-top: 2rem;
-`;
 
 function HumanResources() {
   return (
