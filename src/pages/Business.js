@@ -293,7 +293,7 @@ function Business(){
       <PageBanner><BannerTitle>사업영역</BannerTitle></PageBanner>
 
       {/* ── (1) 파트너사 로고 ─────────────────────────── */}
-      <ContentSection>
+      <ContentSection id="partners">
         <SectionTitle>주요 파트너사</SectionTitle>
         <p>
           (주)에스앤케이이엔지는 국내외 발전사를 비롯한 다양한 전력 기업과 긴밀한 협력
@@ -311,7 +311,7 @@ function Business(){
       </ContentSection>
 
       {/* ── (2) 파트너사 납품 현황 ────────────────────── */}
-      <ContentSection ref={deliveryRef}>
+      <ContentSection id="delivery" ref={deliveryRef}>
         <SectionTitle>파트너사 납품 현황</SectionTitle>
         <p>
           당사가 공급한 물량을 파트너사 비율로 환산한 수치입니다
@@ -347,7 +347,7 @@ function Business(){
       </ContentSection>
 
       {/* ── (3) 사업 영역 ─────────────────────────────── */}
-      <ContentSection>
+      <ContentSection id="business-areas">
         <SectionTitle>(주)에스앤케이이엔지의 사업영역</SectionTitle>
         <p>
           (주)에스앤케이이엔지는 발전소 핵심 설비부터 제어‧계측 솔루션까지
@@ -356,7 +356,7 @@ function Business(){
 
         <AreaWrap>
           {/* 주요 전기 기계·장비 */}
-          <Card>
+          <Card id="power-equipment">
             <Image style={{backgroundImage:`url('/images/power_equipment_detail.jpg')`}}/>
             <Text>
               <h3>주요 전기 기계·장비</h3>
@@ -372,7 +372,7 @@ function Business(){
           </Card>
 
           {/* 제어 시스템 및 전자 부품 */}
-          <Card rev>
+          <Card id="control-systems" rev>
             <Image style={{backgroundImage:`url('/images/control_systems_detail.jpg')`}}/>
             <Text>
               <h3>제어 시스템 및 전자 부품</h3>
@@ -389,7 +389,7 @@ function Business(){
           </Card>
 
           {/* 계측기기 및 시험 장비 */}
-          <Card>
+          <Card id="instruments">
             <Image style={{backgroundImage:`url('/images/instruments_detail.jpg')`}}/>
             <Text>
               <h3>계측기기 및 시험 장비</h3>
@@ -406,7 +406,7 @@ function Business(){
           </Card>
 
           {/* 관련 기자재 및 부품 */}
-          <Card rev>
+          <Card id="materials" rev>
             <Image style={{backgroundImage:`url('/images/materials_parts_detail.jpg')`}}/>
             <Text>
               <h3>관련 기자재 및 부품</h3>

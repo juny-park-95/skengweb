@@ -188,10 +188,9 @@ function Home() {
         <HeroTitle>(주)에스앤케이이엔지</HeroTitle>
         <HeroSubtitle>전기·전자 기자재 전문 공급 파트너</HeroSubtitle>
         <HeroDescription>
-        (주)에스앤케이이엔지는 발전소 운영의 핵심인 
-        전기·전자 기계, 정밀 부품, 첨단 계측기기 및 관련 기자재를 전문적으로 취급하는 
-        도매 기업입니다. 다년간의 경험과 전문성을 바탕으로 고객사의 안정적인 전력 생산을 
-        지원하는 신뢰할 수 있는 파트너가 되겠습니다.
+        (주)에스앤케이이엔지는 두온시스템(주) 발전소 대리점입니다. 
+        다년간의 경험과 전문성을 바탕으로 신뢰할 수 있는 
+        공급 파트너가 되겠습니다.
         </HeroDescription>
         <ScrollIndicator>
           <p>Scroll Down</p>

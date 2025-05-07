@@ -327,7 +327,7 @@ function Center() {
         <BannerTitle>고객센터</BannerTitle>
       </PageBanner>
       
-      <ContentSection>
+      <ContentSection id="support">
         <SectionTitle>고객지원</SectionTitle>
         <SupportSection>
           <SupportGrid>
@@ -364,7 +364,7 @@ function Center() {
         </SupportSection>
       </ContentSection>
       
-      <ContentSection>
+      <ContentSection id="faq">
         <SectionTitle>자주 묻는 질문</SectionTitle>
         <TabsContainer>
           <TabsHeader>
@@ -449,7 +449,7 @@ function Center() {
             </FAQItem>
           </TabContent>
           
-          <TabContent active={activeTab === 'contact'}>
+          <TabContent id="contact" active={activeTab === 'contact'}>
             <ContactForm>
               <FormGroup>
                 <Label>이름 *</Label>

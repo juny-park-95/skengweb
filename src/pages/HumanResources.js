@@ -228,7 +228,7 @@ function HumanResources() {
         <BannerTitle>인재채용</BannerTitle>
       </PageBanner>
       
-      <ContentSection>
+      <ContentSection id="talent">
         <SectionTitle>인재상</SectionTitle>
         <p>(주)에스앤케이이엔지는 열정적이고 도전적인 인재, 창의적이고 혁신적인 사고를 가진 인재, 
         전문성과 글로벌 역량을 갖춘 인재를 소중히 여깁니다.</p>
@@ -272,7 +272,7 @@ function HumanResources() {
         </TalentSection>
       </ContentSection>
       
-      <ContentSection>
+      <ContentSection id="recruitment">
         <SectionTitle>채용 프로세스</SectionTitle>
         <p>(주)에스앤케이이엔지는 공정하고 투명한 채용 프로세스를 통해 우수한 인재를 선발하고 있습니다.</p>
         

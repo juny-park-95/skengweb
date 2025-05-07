@@ -371,41 +371,18 @@ function About() {
       {/* ========================================================================= */}
       {/* 회사 소개 */}
       {/* ========================================================================= */}
-      <ContentSection>
+      <ContentSection id="company">
         <SectionTitle>회사소개</SectionTitle>
         <p>
-          (주)에스앤케이이엔지는 국내외 발전소의 안정적·효율적 운영을 지원하는 전기·전자
-          기계·부품 및 계측기기 전문 공급사입니다. <strong>DCS(Distributed Control
-          System) 사업으로 축적한 프로젝트 관리 역량</strong>과 <strong>AUTROL</strong>
-          브랜드 지능형 전송기 개발 노하우를 결합하여, 고정밀·고신뢰 계측기를 공급하고 있습니다.
-          (주)에스앤케이이엔지는 <em>고객 설비의 생애주기 전반을 책임지는 파트너</em>가
-          되기 위해, 설계·제작·시운전·사후 지원에 이르는 토털 서비스를 제공합니다.
+          (주)에스앤케이이엔지는 <strong>두온시스템(주) 발전소 대리점</strong>입니다.
         </p>
-
-        {/* Vision · Mission · Core Values */}
-        <CompanyVision>
-          <VisionCard>
-            <h3>VISION</h3>
-            <p>스마트 계측·제어 분야 글로벌 Top-Tier 솔루션 파트너</p>
-          </VisionCard>
-          <VisionCard>
-            <h3>MISSION</h3>
-            <p>
-              첨단 기술·품질·서비스로 발전소의 안전성과 에너지 효율을 극대화하여 사회 및
-              경제의 지속 가능 성장에 기여한다
-            </p>
-          </VisionCard>
-          <VisionCard>
-            <h3>CORE VALUES</h3>
-            <p>신뢰 | 전문성 | 품질 | 고객가치</p>
-          </VisionCard>
-        </CompanyVision>
+        {/* 기타 설명 및 Vision, Mission, Core Values 내용 삭제됨 */}
       </ContentSection>
 
       {/* ========================================================================= */}
       {/* 연혁 */}
       {/* ========================================================================= */}
-      <ContentSection>
+      <ContentSection id="history">
         <SectionTitle>연혁</SectionTitle>
         <CompanyHistory>
           <Timeline>
@@ -482,7 +459,7 @@ function About() {
       {/* ========================================================================= */}
       {/* 수상 내역 */}
       {/* ========================================================================= */}
-      <ContentSection>
+      <ContentSection id="awards">
         <SectionTitle>수상 내역</SectionTitle>
         <AwardsSection>
           <AwardsList>
@@ -512,7 +489,7 @@ function About() {
       {/* ========================================================================= */}
       {/* ISO 인증 */}
       {/* ========================================================================= */}
-      <ContentSection>
+      <ContentSection id="certification">
         <SectionTitle>품질 인증</SectionTitle>
         <p>
           (주)에스앤케이이엔지는 국제 표준화 기구(ISO)의 품질 경영 시스템 인증을 획득하여 
@@ -551,7 +528,7 @@ function About() {
       {/* ========================================================================= */}
       {/* 오시는 길 */}
       {/* ========================================================================= */}
-      <ContentSection>
+      <ContentSection id="location">
         <SectionTitle>오시는 길</SectionTitle>
         <LocationInfo>
           <AddressCard>
@@ -579,7 +556,7 @@ function About() {
         {/* ========================================================================= */}
         {/* 교통 안내 */}
         {/* ========================================================================= */}
-        <TransportSection>
+        <TransportSection id="transport">
           <SectionTitle>교통 안내</SectionTitle>
           <TransportGrid>
             <TransportCard>
