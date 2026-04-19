@@ -292,13 +292,21 @@ const ko = {
     table: {
       year: '연도',
       client: '발주처',
-      contractNumber: '계약번호',
       items: '주요 품명',
       scale: '규모',
       empty: '검색 결과가 없습니다.',
+      disclaimer: '※ 발주처 정보는 비식별화하여 표기하였습니다.',
     },
     scaleLabels: { small: '소형', medium: '중형', large: '대형' },
-    filters: { all: '전체', jungbu: '중부발전', seobu: '서부발전', dongseo: '동서발전', namdong: '남동발전', other: '기타' },
+    filters: { all: '전체', utility_a: '발전사 A', utility_b: '발전사 B', utility_c: '발전사 C', utility_d: '발전사 D', other: '기타' },
+    clientBuckets: {
+      utility_a: '국내 발전사 A',
+      utility_b: '국내 발전사 B',
+      utility_c: '국내 발전사 C',
+      utility_d: '국내 발전사 D',
+      public: '에너지 공기업',
+      ipp: '민간 발전사',
+    },
   },
 
   hr: {

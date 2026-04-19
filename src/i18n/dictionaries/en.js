@@ -297,13 +297,21 @@ const en = {
     table: {
       year: 'Year',
       client: 'Client',
-      contractNumber: 'Contract No.',
       items: 'Items',
       scale: 'Scale',
       empty: 'No matching records found.',
+      disclaimer: '※ Client information is anonymized.',
     },
     scaleLabels: { small: 'Small', medium: 'Medium', large: 'Large' },
-    filters: { all: 'All', jungbu: 'KOMIPO', seobu: 'KOWEPO', dongseo: 'EWP', namdong: 'KOEN', other: 'Other' },
+    filters: { all: 'All', utility_a: 'Utility A', utility_b: 'Utility B', utility_c: 'Utility C', utility_d: 'Utility D', other: 'Other' },
+    clientBuckets: {
+      utility_a: 'Power Utility A',
+      utility_b: 'Power Utility B',
+      utility_c: 'Power Utility C',
+      utility_d: 'Power Utility D',
+      public: 'Public Energy Corp.',
+      ipp: 'Independent Power Producer',
+    },
   },
 
   hr: {
