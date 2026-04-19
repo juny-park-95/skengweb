@@ -156,24 +156,6 @@ const BarBg = styled.div`
   }
 `;
 
-const MobileDeliveryRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid #eaeaea;
-  
-  &:last-child {
-    border-bottom: none;
-  }
-  
-  span {
-    &:last-child {
-      font-weight: 600;
-      color: #0066cc;
-    }
-  }
-`;
-
 /* =========[ UPDATED ]========= */
 const Bar = styled.div`
   position:absolute;

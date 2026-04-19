@@ -54,35 +54,6 @@ const SectionTitle = styled.h2`
   }
 `;
 
-const CompanyVision = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin-top: 3rem;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const VisionCard = styled.div`
-  flex: 1;
-  min-width: 250px;
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #0066cc;
-  }
-  p {
-    color: #666;
-    line-height: 1.6;
-  }
-`;
-
 const CompanyHistory = styled.div`
   margin-top: 3rem;
 `;
@@ -305,28 +276,6 @@ const DocumentImage = styled.img`
   
   &:hover {
     transform: scale(1.02);
-  }
-`;
-
-const DownloadLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 15px;
-  background-color: #0066cc;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 500;
-  margin-top: 15px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  
-  i {
-    margin-left: 8px;
-  }
-  
-  &:hover {
-    background-color: #0055aa;
-    transform: translateY(-2px);
   }
 `;
 

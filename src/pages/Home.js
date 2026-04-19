@@ -167,20 +167,6 @@ const BusinessCardContent = styled.div`
   }
 `;
 
-const Button = styled.a`
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #0066cc;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-  
-  &:hover {
-    background-color: #0055aa;
-  }
-`;
-
 function Home() {
   return (
     <HomeContainer>
