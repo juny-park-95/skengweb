@@ -48,6 +48,15 @@ const FooterTitle = styled.h3`
   }
 `;
 
+const BrandLogo = styled.img`
+  display: block;
+  max-width: 240px;
+  width: 100%;
+  height: auto;
+  border-radius: ${({ theme }) => theme.radii.md};
+  margin-bottom: ${({ theme }) => theme.spacing[5]};
+`;
+
 const FooterLink = styled.a`
   display: block;
   color: ${({ theme }) => theme.colors.palette.neutral[400]};
@@ -112,7 +121,7 @@ function Footer() {
     <FooterContainer>
       <FooterContent>
         <FooterSection>
-          <FooterTitle>{t.meta.brand}</FooterTitle>
+          <BrandLogo src="/snk_logo.png" alt={t.meta.brand} />
           <ContactItem><FaMapMarkerAlt /><span>{f.address}</span></ContactItem>
           <ContactItem><FaPhone /><a href="tel:07082700665">{f.tel}</a></ContactItem>
           <ContactItem><FaFax /><span>{f.fax}</span></ContactItem>

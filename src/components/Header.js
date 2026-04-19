@@ -34,19 +34,36 @@ const HeaderContainer = styled.header`
 `;
 
 const Logo = styled.div`
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  letter-spacing: ${({ theme }) => theme.typography.letterSpacing.tight};
-  color: ${({ theme }) => theme.colors.text};
+  display: flex;
+  align-items: center;
 
-  a { color: inherit; }
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing[3]};
+    color: ${({ theme }) => theme.colors.text};
+    font-size: ${({ theme }) => theme.typography.fontSize.md};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+    letter-spacing: ${({ theme }) => theme.typography.letterSpacing.tight};
+  }
+
+  img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: ${({ theme }) => theme.radii.md};
+    box-shadow: ${({ theme }) => theme.shadows.xs};
+    flex-shrink: 0;
+  }
+
+  .brand-text {
+    line-height: ${({ theme }) => theme.typography.lineHeight.tight};
+  }
 
   ${({ theme }) => theme.media.mdDown} {
-    font-size: ${({ theme }) => theme.typography.fontSize.base};
-    max-width: 70%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .brand-text {
+      display: none;
+    }
   }
 `;
 
@@ -210,7 +227,10 @@ function Header({ isDark, onToggleTheme, lang, onToggleLang }) {
     <>
       <HeaderContainer>
         <Logo>
-          <Link to="/" aria-label={t.nav.home}>{t.meta.brand}</Link>
+          <Link to="/" aria-label={t.nav.home}>
+            <img src="/snk_symbol.png" alt="" />
+            <span className="brand-text">{t.meta.brand}</span>
+          </Link>
         </Logo>
 
         <Nav aria-label={t.nav.mainMenuLabel}>
