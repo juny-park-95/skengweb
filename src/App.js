@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import styled, { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme, GlobalStyle } from './theme';
 import useDarkMode from './hooks/useDarkMode';
+import { I18nProvider, useI18n } from './i18n';
 import './App.css';
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -16,18 +17,11 @@ import Footer from './components/Footer';
 import ScrollToHash from './components/ScrollToHash';
 import PageTransition from './components/PageTransition';
 
-// ScrollToTop component that uses smooth scrolling
 function ScrollToTop() {
   const { pathname } = useLocation();
-  
   React.useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [pathname]);
-  
   return null;
 }
 
@@ -61,9 +55,9 @@ const ScrollToTopButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: ${props => (props.visible ? 1 : 0)};
-  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
-  transform: translateY(${props => (props.visible ? '0' : '8px')});
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
+  transform: translateY(${(props) => (props.visible ? '0' : '8px')});
   transition: all ${({ theme }) => theme.transitions.base};
   box-shadow: ${({ theme }) => theme.shadows.lg};
   z-index: ${({ theme }) => theme.zIndex.toast};
@@ -82,97 +76,67 @@ const ScrollToTopButton = styled.button`
   }
 `;
 
-// Arrow Up SVG icon
 const ArrowUpIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 19V5M5 12l7-7 7 7"/>
+    <path d="M12 19V5M5 12l7-7 7 7" />
   </svg>
 );
 
-function App() {
+function AppShell() {
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const { mode, toggle, isDark } = useDarkMode();
-  
+  const { mode, toggle: toggleTheme, isDark } = useDarkMode();
+  const { lang, toggle: toggleLang, t } = useI18n();
+
   useEffect(() => {
-    const handleScroll = () => {
-      // Show button when page is scrolled down 300px
-      if (window.pageYOffset > 300) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
-    };
-    
+    const handleScroll = () => setShowScrollButton(window.pageYOffset > 300);
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-  
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
   return (
     <ThemeProvider theme={mode === 'dark' ? darkTheme : lightTheme}>
       <GlobalStyle />
       <Router>
         <div className="App">
-          <SkipLink href="#main-content">본문으로 건너뛰기</SkipLink>
+          <SkipLink href="#main-content">{t.common.skipToContent}</SkipLink>
           <ScrollToTop />
           <ScrollToHash />
-          <Header isDark={isDark} onToggleTheme={toggle} />
+          <Header
+            isDark={isDark}
+            onToggleTheme={toggleTheme}
+            lang={lang}
+            onToggleLang={toggleLang}
+          />
           <Routes>
-            <Route path="/" element={
-              <PageTransition>
-                <Home />
-              </PageTransition>
-            } />
-            <Route path="/about" element={
-              <PageTransition>
-                <About />
-              </PageTransition>
-            } />
-            <Route path="/business" element={
-              <PageTransition>
-                <Business />
-              </PageTransition>
-            } />
-            <Route path="/projects" element={
-              <PageTransition>
-                <Projects />
-              </PageTransition>
-            } />
-            <Route path="/hr" element={
-              <PageTransition>
-                <HumanResources />
-              </PageTransition>
-            } />
-            <Route path="/center" element={
-              <PageTransition>
-                <Center />
-              </PageTransition>
-            } />
-            <Route path="/location" element={
-              <PageTransition>
-                <Location />
-              </PageTransition>
-            } />
+            <Route path="/"          element={<PageTransition><Home /></PageTransition>} />
+            <Route path="/about"     element={<PageTransition><About /></PageTransition>} />
+            <Route path="/business"  element={<PageTransition><Business /></PageTransition>} />
+            <Route path="/projects"  element={<PageTransition><Projects /></PageTransition>} />
+            <Route path="/hr"        element={<PageTransition><HumanResources /></PageTransition>} />
+            <Route path="/center"    element={<PageTransition><Center /></PageTransition>} />
+            <Route path="/location"  element={<PageTransition><Location /></PageTransition>} />
           </Routes>
           <Footer />
           <ScrollToTopButton
             visible={showScrollButton}
             onClick={scrollToTop}
-            aria-label="맨 위로 이동"
+            aria-label={t.common.scrollToTop}
           >
             <ArrowUpIcon />
           </ScrollToTopButton>
         </div>
       </Router>
     </ThemeProvider>
+  );
+}
+
+function App() {
+  return (
+    <I18nProvider>
+      <AppShell />
+    </I18nProvider>
   );
 }
 

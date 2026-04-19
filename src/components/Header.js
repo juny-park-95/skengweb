@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import ThemeToggle from './common/ThemeToggle';
+import LanguageToggle from './common/LanguageToggle';
+import { useI18n } from '../i18n';
 
-const NAV_LINKS = [
-  { path: '/about',    label: '기업소개' },
-  { path: '/business', label: '사업영역' },
-  { path: '/projects', label: '주요 납품 실적' },
-  { path: '/hr',       label: '인재채용' },
-  { path: '/center',   label: '고객센터' },
+const NAV_PATHS = [
+  { path: '/about',    key: 'about' },
+  { path: '/business', key: 'business' },
+  { path: '/projects', key: 'projects' },
+  { path: '/hr',       key: 'hr' },
+  { path: '/center',   key: 'center' },
 ];
 
 const HeaderContainer = styled.header`
@@ -189,9 +191,10 @@ const NavActions = styled.div`
   gap: ${({ theme }) => theme.spacing[3]};
 `;
 
-function Header({ isDark, onToggleTheme }) {
+function Header({ isDark, onToggleTheme, lang, onToggleLang }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useI18n();
 
   useEffect(() => { setIsMenuOpen(false); }, [location]);
 
@@ -200,20 +203,23 @@ function Header({ isDark, onToggleTheme }) {
     return () => { document.body.style.overflow = 'auto'; };
   }, [isMenuOpen]);
 
+  const themeLabel = isDark ? t.common.toggleThemeLight : t.common.toggleThemeDark;
+  const langLabel = lang === 'ko' ? t.common.toggleLangEn : t.common.toggleLangKo;
+
   return (
     <>
       <HeaderContainer>
         <Logo>
-          <Link to="/" aria-label="홈으로 이동">(주)에스앤케이이엔지</Link>
+          <Link to="/" aria-label={t.nav.home}>{t.meta.brand}</Link>
         </Logo>
 
-        <Nav aria-label="주 메뉴">
-          {NAV_LINKS.map((link) => {
-            const active = location.pathname === link.path;
+        <Nav aria-label={t.nav.mainMenuLabel}>
+          {NAV_PATHS.map(({ path, key }) => {
+            const active = location.pathname === path;
             return (
-              <NavItem key={link.path} $active={active}>
-                <Link to={link.path} aria-current={active ? 'page' : undefined}>
-                  {link.label}
+              <NavItem key={path} $active={active}>
+                <Link to={path} aria-current={active ? 'page' : undefined}>
+                  {t.nav[key]}
                 </Link>
               </NavItem>
             );
@@ -221,11 +227,12 @@ function Header({ isDark, onToggleTheme }) {
         </Nav>
 
         <NavActions>
-          {onToggleTheme && <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />}
+          {onToggleLang && <LanguageToggle lang={lang} onToggle={onToggleLang} label={langLabel} />}
+          {onToggleTheme && <ThemeToggle isDark={isDark} onToggle={onToggleTheme} label={themeLabel} />}
           <MenuButton
             $open={isMenuOpen}
             onClick={() => setIsMenuOpen((v) => !v)}
-            aria-label="메뉴 토글"
+            aria-label={t.common.toggleMenu}
             aria-expanded={isMenuOpen}
           >
             <span /><span /><span />
@@ -234,17 +241,17 @@ function Header({ isDark, onToggleTheme }) {
       </HeaderContainer>
 
       <MobileOverlay $open={isMenuOpen} onClick={() => setIsMenuOpen(false)} aria-hidden="true" />
-      <MobileMenu $open={isMenuOpen} aria-label="모바일 메뉴" aria-hidden={!isMenuOpen}>
-        {NAV_LINKS.map((link) => {
-          const active = location.pathname === link.path;
+      <MobileMenu $open={isMenuOpen} aria-label={t.nav.mobileMenuLabel} aria-hidden={!isMenuOpen}>
+        {NAV_PATHS.map(({ path, key }) => {
+          const active = location.pathname === path;
           return (
             <NavItem
-              key={`m-${link.path}`}
+              key={`m-${path}`}
               $active={active}
               onClick={() => setIsMenuOpen(false)}
             >
-              <Link to={link.path} aria-current={active ? 'page' : undefined}>
-                {link.label}
+              <Link to={path} aria-current={active ? 'page' : undefined}>
+                {t.nav[key]}
               </Link>
             </NavItem>
           );

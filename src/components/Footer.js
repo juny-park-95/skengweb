@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaFax } from 'react-icons/fa';
+import { useI18n } from '../i18n';
 
 const FooterContainer = styled.footer`
   background: ${({ theme }) => theme.colors.palette.neutral[900]};
@@ -103,60 +104,61 @@ const FooterBottom = styled.div`
 `;
 
 function Footer() {
+  const { t } = useI18n();
+  const f = t.footer;
+  const year = new Date().getFullYear();
+
   return (
     <FooterContainer>
       <FooterContent>
         <FooterSection>
-          <FooterTitle>(주)에스앤케이이엔지</FooterTitle>
-          <ContactItem><FaMapMarkerAlt /><span>경기도 안산시 단원구 신촌5길 28</span></ContactItem>
-          <ContactItem><FaPhone /><a href="tel:07082700665">TEL: 070-8270-0665</a></ContactItem>
-          <ContactItem><FaFax /><span>FAX: 031-421-0551</span></ContactItem>
-          <ContactItem><FaEnvelope /><a href="mailto:sk5559611@hanmail.net">sk5559611@hanmail.net</a></ContactItem>
-          <ContactItem><FaClock /><span>평일 09:00 – 18:00 (점심 12:00 – 13:00)</span></ContactItem>
-          <CompanyDescription>
-            (주)에스앤케이이엔지는 고품질 자동화 시스템 및 계측기기 솔루션 공급업체로서,
-            국내외 주요 기업들에게 최고의 제품과 서비스를 제공합니다.
-          </CompanyDescription>
+          <FooterTitle>{t.meta.brand}</FooterTitle>
+          <ContactItem><FaMapMarkerAlt /><span>{f.address}</span></ContactItem>
+          <ContactItem><FaPhone /><a href="tel:07082700665">{f.tel}</a></ContactItem>
+          <ContactItem><FaFax /><span>{f.fax}</span></ContactItem>
+          <ContactItem><FaEnvelope /><a href="mailto:sk5559611@hanmail.net">{f.email}</a></ContactItem>
+          <ContactItem><FaClock /><span>{f.hours}</span></ContactItem>
+          <CompanyDescription>{f.description}</CompanyDescription>
         </FooterSection>
 
         <FooterSection>
-          <FooterTitle>기업소개</FooterTitle>
-          <FooterLink href="/about">회사소개</FooterLink>
-          <FooterLink href="/about#history">연혁</FooterLink>
-          <FooterLink href="/about#awards">수상내역</FooterLink>
-          <FooterLink href="/about#certification">품질인증</FooterLink>
-          <FooterLink href="/about#location">오시는 길</FooterLink>
-          <FooterLink href="/about#transport">교통안내</FooterLink>
+          <FooterTitle>{f.about}</FooterTitle>
+          <FooterLink href="/about">{f.aboutLinks.company}</FooterLink>
+          <FooterLink href="/about#history">{f.aboutLinks.history}</FooterLink>
+          <FooterLink href="/about#awards">{f.aboutLinks.awards}</FooterLink>
+          <FooterLink href="/about#certification">{f.aboutLinks.certification}</FooterLink>
+          <FooterLink href="/about#location">{f.aboutLinks.location}</FooterLink>
+          <FooterLink href="/about#transport">{f.aboutLinks.transport}</FooterLink>
         </FooterSection>
 
         <FooterSection>
-          <FooterTitle>사업영역</FooterTitle>
-          <FooterLink href="/business">사업영역</FooterLink>
-          <FooterLink href="/business#partners">주요 파트너사</FooterLink>
-          <FooterLink href="/business#delivery">납품 현황</FooterLink>
-          <FooterLink href="/business#power-equipment">주요 전기 기계·장비</FooterLink>
-          <FooterLink href="/business#control-systems">제어 시스템 및 전자 부품</FooterLink>
-          <FooterLink href="/business#instruments">계측기기 및 시험 장비</FooterLink>
-          <FooterLink href="/business#materials">관련 기자재 및 부품</FooterLink>
-          <FooterLink href="/projects">주요 납품 실적</FooterLink>
+          <FooterTitle>{f.business}</FooterTitle>
+          <FooterLink href="/business">{f.businessLinks.overview}</FooterLink>
+          <FooterLink href="/business#partners">{f.businessLinks.partners}</FooterLink>
+          <FooterLink href="/business#delivery">{f.businessLinks.delivery}</FooterLink>
+          <FooterLink href="/business#power-equipment">{f.businessLinks.power}</FooterLink>
+          <FooterLink href="/business#control-systems">{f.businessLinks.control}</FooterLink>
+          <FooterLink href="/business#instruments">{f.businessLinks.instruments}</FooterLink>
+          <FooterLink href="/business#materials">{f.businessLinks.materials}</FooterLink>
+          <FooterLink href="/projects">{f.businessLinks.projects}</FooterLink>
         </FooterSection>
 
         <FooterSection>
-          <FooterTitle>인재채용</FooterTitle>
-          <FooterLink href="/hr#talent">인재상</FooterLink>
-          <FooterLink href="/hr#recruitment">채용 프로세스</FooterLink>
+          <FooterTitle>{f.hr}</FooterTitle>
+          <FooterLink href="/hr#talent">{f.hrLinks.talent}</FooterLink>
+          <FooterLink href="/hr#recruitment">{f.hrLinks.process}</FooterLink>
         </FooterSection>
 
         <FooterSection>
-          <FooterTitle>고객센터</FooterTitle>
-          <FooterLink href="/center#support">고객지원</FooterLink>
-          <FooterLink href="/center#faq">자주 묻는 질문</FooterLink>
+          <FooterTitle>{f.center}</FooterTitle>
+          <FooterLink href="/center#support">{f.centerLinks.support}</FooterLink>
+          <FooterLink href="/center#faq">{f.centerLinks.faq}</FooterLink>
         </FooterSection>
       </FooterContent>
 
       <FooterBottom>
-        <p>&copy; {new Date().getFullYear()} (주)에스앤케이이엔지. All Rights Reserved.</p>
-        <p>사업자등록번호: 134-87-13658 | 대표: 최재민 | 개인정보관리책임자: 박용수</p>
+        <p>{f.copyright(year)}</p>
+        <p>{f.business_info}</p>
       </FooterBottom>
     </FooterContainer>
   );

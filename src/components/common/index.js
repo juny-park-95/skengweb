@@ -8,3 +8,4 @@ export { default as Button } from './Button';
 export { default as Stack } from './Stack';
 export { default as Reveal } from './Reveal';
 export { default as ThemeToggle } from './ThemeToggle';
+export { default as LanguageToggle } from './LanguageToggle';

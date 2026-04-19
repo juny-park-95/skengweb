@@ -43,13 +43,14 @@ function MoonIcon() {
   );
 }
 
-function ThemeToggle({ isDark, onToggle }) {
+function ThemeToggle({ isDark, onToggle, label }) {
+  const fallback = isDark ? 'Switch to light mode' : 'Switch to dark mode';
   return (
     <Button
       type="button"
       onClick={onToggle}
-      aria-label={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
-      title={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
+      aria-label={label || fallback}
+      title={label || fallback}
     >
       {isDark ? <SunIcon /> : <MoonIcon />}
     </Button>

@@ -10,46 +10,10 @@ import {
   CardBody,
   Button,
 } from '../components/common';
+import { useI18n } from '../i18n';
 
-const SUPPORT = [
-  {
-    icon: '📞',
-    title: '전화 문의',
-    text: '기술 지원 및 제품 문의는 전화로 빠르게 도움을 받으실 수 있습니다. 평일 09:00–18:00 운영.',
-    link: { label: '070-8270-0665', href: 'tel:07082700665' },
-  },
-  {
-    icon: '📧',
-    title: '이메일 문의',
-    text: '상세한 문의사항은 이메일로 보내주시면 영업일 기준 24시간 이내에 답변드립니다.',
-    link: { label: 'sk5559611@hanmail.net', href: 'mailto:sk5559611@hanmail.net' },
-  },
-  {
-    icon: '🔧',
-    title: '기술 지원',
-    text: '제품 설치 및 유지보수 관련 기술 지원이 필요하신 경우 기술지원팀으로 문의해주세요.',
-    link: { label: '기술지원 요청하기', href: '#contact' },
-  },
-];
-
-const FAQS = [
-  {
-    q: '제품 구매 절차는 어떻게 되나요?',
-    a: '제품 구매를 원하시면 전화(070-8270-0665) 또는 이메일(sk5559611@hanmail.net)로 문의해 주시기 바랍니다. 담당 영업 담당자가 제품 사양, 가격, 납기 등에 대해 상세히 안내해 드립니다. 대량 구매 및 지속적인 거래를 원하시는 기업의 경우 별도의 계약을 통해 진행됩니다.',
-  },
-  {
-    q: '기술 교육 및 제품 사용 교육을 받을 수 있나요?',
-    a: '네, 제품 구매 고객을 대상으로 제품 사용법 및 유지보수 교육을 제공합니다. 온라인·오프라인 모두 진행하며, 고객사 요청 시 방문 교육도 가능합니다. 교육 일정 및 비용은 고객센터를 통해 문의해 주시기 바랍니다.',
-  },
-  {
-    q: '협력업체로 등록하려면 어떻게 해야 하나요?',
-    a: '협력업체 등록 신청서, 사업자등록증, 회사소개서를 이메일(sk5559611@hanmail.net)로 제출해 주시면 내부 심사를 거쳐 약 2주 내로 결과를 안내드립니다.',
-  },
-  {
-    q: '제품 배송은 어떻게 진행되나요?',
-    a: '주문 확인 및 결제 완료 후 영업일 기준 3–5일 내에 출고됩니다. 대형·특수 제품의 경우 별도의 배송 일정이 적용될 수 있으며, 전문 물류업체를 통해 진행되고 필요 시 설치 서비스가 함께 제공됩니다.',
-  },
-];
+const SUPPORT_ICONS = ['📞', '📧', '🔧'];
+const SUPPORT_HREFS = ['tel:07082700665', 'mailto:sk5559611@hanmail.net', '#contact'];
 
 const SupportCard = styled(Card)`
   padding: ${({ theme }) => theme.spacing[8]};
@@ -241,28 +205,30 @@ const InfoItem = styled.div`
 `;
 
 function Center() {
+  const { t } = useI18n();
+  const c = t.center;
   const [activeTab, setActiveTab] = useState('faq');
 
   return (
     <main id="main-content">
       <PageBanner
-        eyebrow="Support"
-        title="고객센터"
-        description="제품 문의, 기술 지원, 협력업체 등록 등 다양한 문의를 받고 있습니다."
+        eyebrow={c.banner.eyebrow}
+        title={c.banner.title}
+        description={c.banner.description}
         image="/images/center-banner.jpg"
       />
 
       <Section id="support">
         <Container>
-          <SectionTitle eyebrow="Support" title="고객지원" />
+          <SectionTitle eyebrow={c.supportEyebrow} title={c.supportTitle} />
           <Grid $min="280px">
-            {SUPPORT.map((item) => (
+            {c.support.map((item, idx) => (
               <SupportCard key={item.title}>
                 <CardBody style={{ alignItems: 'center' }}>
-                  <SupportIcon role="img" aria-label={item.title}>{item.icon}</SupportIcon>
+                  <SupportIcon role="img" aria-label={item.title}>{SUPPORT_ICONS[idx]}</SupportIcon>
                   <h3>{item.title}</h3>
                   <SupportText>{item.text}</SupportText>
-                  <SupportLink href={item.link.href}>{item.link.label}</SupportLink>
+                  <SupportLink href={SUPPORT_HREFS[idx]}>{item.label}</SupportLink>
                 </CardBody>
               </SupportCard>
             ))}
@@ -272,17 +238,17 @@ function Center() {
 
       <Section id="faq" $variant="muted">
         <Container>
-          <SectionTitle eyebrow="Help" title="자주 묻는 질문 / 문의하기" />
+          <SectionTitle eyebrow={c.helpEyebrow} title={c.helpTitle} />
           <div style={{ textAlign: 'center' }}>
             <TabsHeader role="tablist">
-              <Tab role="tab" $active={activeTab === 'faq'}     onClick={() => setActiveTab('faq')}>FAQ</Tab>
-              <Tab role="tab" $active={activeTab === 'contact'} onClick={() => setActiveTab('contact')}>문의하기</Tab>
+              <Tab role="tab" $active={activeTab === 'faq'}     onClick={() => setActiveTab('faq')}>{c.tabs.faq}</Tab>
+              <Tab role="tab" $active={activeTab === 'contact'} onClick={() => setActiveTab('contact')}>{c.tabs.contact}</Tab>
             </TabsHeader>
           </div>
 
           {activeTab === 'faq' && (
             <div>
-              {FAQS.map((item) => (
+              {c.faqs.map((item) => (
                 <FAQItem key={item.q}>
                   <FAQQuestion>{item.q}</FAQQuestion>
                   <FAQAnswer>
@@ -297,70 +263,70 @@ function Center() {
             <div id="contact">
               <ContactForm onSubmit={(e) => e.preventDefault()}>
                 <FormGroup>
-                  <Label htmlFor="name">이름 *</Label>
-                  <Input id="name" type="text" placeholder="이름을 입력하세요" required />
+                  <Label htmlFor="name">{c.form.name}</Label>
+                  <Input id="name" type="text" placeholder={c.form.namePh} required />
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="email">이메일 *</Label>
-                  <Input id="email" type="email" placeholder="이메일을 입력하세요" required />
+                  <Label htmlFor="email">{c.form.email}</Label>
+                  <Input id="email" type="email" placeholder={c.form.emailPh} required />
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="phone">전화번호 *</Label>
-                  <Input id="phone" type="tel" placeholder="전화번호를 입력하세요" required />
+                  <Label htmlFor="phone">{c.form.phone}</Label>
+                  <Input id="phone" type="tel" placeholder={c.form.phonePh} required />
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="company">회사명</Label>
-                  <Input id="company" type="text" placeholder="회사명을 입력하세요" />
+                  <Label htmlFor="company">{c.form.company}</Label>
+                  <Input id="company" type="text" placeholder={c.form.companyPh} />
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="type">문의 유형 *</Label>
+                  <Label htmlFor="type">{c.form.type}</Label>
                   <Select id="type" required defaultValue="">
-                    <option value="" disabled>문의 유형을 선택하세요</option>
-                    <option value="product">제품 문의</option>
-                    <option value="technical">기술 지원</option>
-                    <option value="warranty">보증/A/S</option>
-                    <option value="partnership">협력업체 등록</option>
-                    <option value="order">주문/배송</option>
-                    <option value="other">기타</option>
+                    <option value="" disabled>{c.form.typePh}</option>
+                    <option value="product">{c.form.types.product}</option>
+                    <option value="technical">{c.form.types.technical}</option>
+                    <option value="warranty">{c.form.types.warranty}</option>
+                    <option value="partnership">{c.form.types.partnership}</option>
+                    <option value="order">{c.form.types.order}</option>
+                    <option value="other">{c.form.types.other}</option>
                   </Select>
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="model">제품 모델</Label>
-                  <Input id="model" type="text" placeholder="문의하시는 제품 모델명" />
+                  <Label htmlFor="model">{c.form.model}</Label>
+                  <Input id="model" type="text" placeholder={c.form.modelPh} />
                 </FormGroup>
                 <FormGroup className="full-width">
-                  <Label htmlFor="subject">제목 *</Label>
-                  <Input id="subject" type="text" placeholder="제목을 입력하세요" required />
+                  <Label htmlFor="subject">{c.form.subject}</Label>
+                  <Input id="subject" type="text" placeholder={c.form.subjectPh} required />
                 </FormGroup>
                 <FormGroup className="full-width">
-                  <Label htmlFor="message">문의 내용 *</Label>
-                  <TextArea id="message" placeholder="문의 내용을 상세히 기재해 주세요" required />
+                  <Label htmlFor="message">{c.form.message}</Label>
+                  <TextArea id="message" placeholder={c.form.messagePh} required />
                 </FormGroup>
                 <FormGroup className="full-width">
-                  <Label htmlFor="file">첨부파일</Label>
+                  <Label htmlFor="file">{c.form.file}</Label>
                   <Input id="file" type="file" />
-                  <small style={{ color: '#94a3b8' }}>최대 10MB (jpg, png, pdf, doc, docx)</small>
+                  <small style={{ color: '#94a3b8' }}>{c.form.fileHint}</small>
                 </FormGroup>
                 <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end' }}>
-                  <Button type="submit" $size="lg">문의하기</Button>
+                  <Button type="submit" $size="lg">{c.form.submit}</Button>
                 </div>
               </ContactForm>
 
               <ContactInfoGrid>
                 <InfoItem>
-                  <span className="icon" role="img" aria-label="주소">📍</span>
-                  <h4>주소</h4>
-                  <p>경기 안산시 단원구 신촌5길 28</p>
+                  <span className="icon" role="img" aria-label={c.info.address}>📍</span>
+                  <h4>{c.info.address}</h4>
+                  <p>{c.info.addressValue}</p>
                 </InfoItem>
                 <InfoItem>
-                  <span className="icon" role="img" aria-label="전화">📞</span>
-                  <h4>전화</h4>
-                  <p>070-8270-0665</p>
+                  <span className="icon" role="img" aria-label={c.info.phone}>📞</span>
+                  <h4>{c.info.phone}</h4>
+                  <p>{c.info.phoneValue}</p>
                 </InfoItem>
                 <InfoItem>
-                  <span className="icon" role="img" aria-label="이메일">📧</span>
-                  <h4>이메일</h4>
-                  <p>sk5559611@hanmail.net</p>
+                  <span className="icon" role="img" aria-label={c.info.email}>📧</span>
+                  <h4>{c.info.email}</h4>
+                  <p>{c.info.emailValue}</p>
                 </InfoItem>
               </ContactInfoGrid>
             </div>

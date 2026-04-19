@@ -8,24 +8,9 @@ import {
   Grid,
   Card,
 } from '../components/common';
+import { useI18n } from '../i18n';
 
-const TRANSPORT = [
-  {
-    icon: '🚗',
-    title: '자가용 이용 시',
-    lines: ['서해안고속도로 안산 IC에서 15분', '주차장 무료 이용 가능'],
-  },
-  {
-    icon: '🚍',
-    title: '버스 이용 시',
-    lines: ['안산역/안산터미널 정류장 하차', '123 · 456번 버스 이용', '‘신촌사거리’ 하차 후 도보 5분'],
-  },
-  {
-    icon: '🚆',
-    title: '지하철 이용 시',
-    lines: ['4호선 안산역 하차', '2번 출구에서 도보 15분', '또는 123 · 456번 버스 환승'],
-  },
-];
+const TRANSPORT_ICONS = ['🚗', '🚍', '🚆'];
 
 const InfoLayout = styled.div`
   display: grid;
@@ -97,31 +82,29 @@ const TransportCard = styled(Card)`
 `;
 
 function Location() {
+  const { t } = useI18n();
+  const l = t.location;
+
   return (
     <main id="main-content">
       <PageBanner
-        eyebrow="Contact"
-        title="오시는 길"
-        description="안산 본사 위치와 교통 안내입니다."
+        eyebrow={l.banner.eyebrow}
+        title={l.banner.title}
+        description={l.banner.description}
         image="/images/location-banner.jpg"
       />
 
       <Section>
         <Container>
-          <SectionTitle eyebrow="Visit" title="찾아오시는 방법" />
+          <SectionTitle eyebrow={l.visitEyebrow} title={l.visitTitle} />
           <InfoLayout>
             <AddressCard>
-              <h3>주소</h3>
-              <p>경기 안산시 단원구 신촌5길 28</p>
-              <p>우편번호: 15443</p>
-              <p>전화: 070-8270-0665</p>
-              <p>이메일: sk5559611@hanmail.net</p>
-              <p>영업시간: 평일 09:00 – 18:00</p>
-              <p>토·일·공휴일 휴무</p>
+              <h3>{l.address.heading}</h3>
+              {l.address.lines.map((line, idx) => <p key={idx}>{line}</p>)}
             </AddressCard>
             <MapFrame>
               <iframe
-                title="에스앤케이이엔지 오시는 길"
+                title={l.mapTitle}
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2243.7777430184738!2d126.81750527184691!3d37.31454205827108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b6e53e53fe145%3A0x7bd617d6a3522ffd!2z6rK96riw64-EIOyViOyCsOyLnCDri6jsm5Dqtawg7Iug7LSMNeq4uCAyOA!5e0!3m2!1sko!2skr!4v1744726564468!5m2!1sko!2skr"
                 loading="lazy"
                 allowFullScreen
@@ -134,13 +117,13 @@ function Location() {
 
       <Section $variant="muted">
         <Container>
-          <SectionTitle eyebrow="Transport" title="교통 안내" />
+          <SectionTitle eyebrow={l.transportEyebrow} title={l.transportTitle} />
           <Grid $min="260px">
-            {TRANSPORT.map((t) => (
-              <TransportCard key={t.title}>
-                <span className="icon" role="img" aria-label={t.title}>{t.icon}</span>
-                <h3>{t.title}</h3>
-                {t.lines.map((line, idx) => <p key={idx}>{line}</p>)}
+            {l.transport.map((item, idx) => (
+              <TransportCard key={item.title}>
+                <span className="icon" role="img" aria-label={item.title}>{TRANSPORT_ICONS[idx]}</span>
+                <h3>{item.title}</h3>
+                {item.lines.map((line, i) => <p key={i}>{line}</p>)}
               </TransportCard>
             ))}
           </Grid>

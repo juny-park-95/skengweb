@@ -6,59 +6,35 @@ import {
   SectionTitle,
   Container,
 } from '../components/common';
+import { useI18n } from '../i18n';
 
 const PARTNER_LOGOS = [
-  { id: 1, src: '/images/nambu.png',   alt: '남부발전' },
-  { id: 2, src: '/images/namdong.png', alt: '남동발전' },
-  { id: 3, src: '/images/dongseo.png', alt: '동서발전' },
-  { id: 4, src: '/images/seobu.png',   alt: '서부발전' },
-  { id: 5, src: '/images/jungboo.png', alt: '중부발전' },
-  { id: 6, src: '/images/CGN.png',     alt: 'CGN 대산전력' },
+  { id: 1, src: '/images/nambu.png',   alt: { ko: '남부발전',  en: 'KOSPO' } },
+  { id: 2, src: '/images/namdong.png', alt: { ko: '남동발전',  en: 'KOEN' } },
+  { id: 3, src: '/images/dongseo.png', alt: { ko: '동서발전',  en: 'EWP' } },
+  { id: 4, src: '/images/seobu.png',   alt: { ko: '서부발전',  en: 'KOWEPO' } },
+  { id: 5, src: '/images/jungboo.png', alt: { ko: '중부발전',  en: 'KOMIPO' } },
+  { id: 6, src: '/images/CGN.png',     alt: { ko: 'CGN 대산전력', en: 'CGN Daesan Power' } },
 ];
 
 const DELIVERIES = [
-  { name: 'CGN 대산전력', percent: 5 },
-  { name: '남부발전',     percent: 10 },
-  { name: '남동발전',     percent: 10 },
-  { name: '동서발전',     percent: 17.3 },
-  { name: '서부발전',     percent: 22.6 },
-  { name: '중부발전',     percent: 30 },
-  { name: '기타',         percent: 5.1 },
+  { key: { ko: 'CGN 대산전력', en: 'CGN Daesan Power' }, percent: 5 },
+  { key: { ko: '남부발전',     en: 'KOSPO' },            percent: 10 },
+  { key: { ko: '남동발전',     en: 'KOEN' },             percent: 10 },
+  { key: { ko: '동서발전',     en: 'EWP' },              percent: 17.3 },
+  { key: { ko: '서부발전',     en: 'KOWEPO' },           percent: 22.6 },
+  { key: { ko: '중부발전',     en: 'KOMIPO' },           percent: 30 },
+  { key: { ko: '기타',         en: 'Other' },            percent: 5.1 },
 ];
 
-const BUSINESS_AREAS = [
-  {
-    id: 'power-equipment',
-    title: '주요 전기 기계·장비',
-    image: '/images/power_equipment_detail.jpg',
-    description:
-      '세계적 제조사와 파트너십을 통해 고신뢰 발전기·변압기·스위치기어 등을 공급, 무중단 운영과 효율 향상에 기여합니다.',
-    items: ['발전기 및 터빈 설비', '고/저압 변압기·리액터', 'GIS·스위치기어', '보호 계전 시스템', 'UPS 및 축전지'],
-  },
-  {
-    id: 'control-systems',
-    title: '제어 시스템 및 전자 부품',
-    image: '/images/control_systems_detail.jpg',
-    description:
-      'DCS·PLC·HMI 및 산업용 센서, 액추에이터를 통해 플랜트 자동화·지능화를 지원합니다.',
-    items: ['DCS, PLC, HMI', '온도·압력·유량 센서', '제어 밸브·액추에이터', '인버터·드라이브', '산업용 네트워크 장비'],
-  },
-  {
-    id: 'instruments',
-    title: '계측기기 및 시험 장비',
-    image: '/images/instruments_detail.jpg',
-    description:
-      '정밀 계측·진단 장비를 제공하여 예방 정비와 설비 신뢰성 향상을 지원합니다.',
-    items: ['전력 분석기·품질 측정기', '절연/접지 저항계', '공정 계측기 (T/P/F 등)', '진동 분석기', '휴대용 시험 장비'],
-  },
-  {
-    id: 'materials',
-    title: '관련 기자재 및 부품',
-    image: '/images/materials_parts_detail.jpg',
-    description: '케이블·커넥터·밸브 등 소모성 부품까지 안정적 공급망으로 즉시 지원합니다.',
-    items: ['전력·제어·광 케이블', '커넥터·배선 자재', '배관 밸브·피팅', '필터·베어링', '공구·안전장비'],
-  },
+const AREA_IMAGES = [
+  '/images/power_equipment_detail.jpg',
+  '/images/control_systems_detail.jpg',
+  '/images/instruments_detail.jpg',
+  '/images/materials_parts_detail.jpg',
 ];
+
+const AREA_IDS = ['power-equipment', 'control-systems', 'instruments', 'materials'];
 
 const scrollX = keyframes`
   from { transform: translateX(0); }
@@ -279,6 +255,8 @@ const AreaText = styled.div`
 `;
 
 function Business() {
+  const { t, lang } = useI18n();
+  const b = t.business;
   const deliveryRef = useRef(null);
 
   useEffect(() => {
@@ -304,24 +282,21 @@ function Business() {
   return (
     <main id="main-content">
       <PageBanner
-        eyebrow="Business"
-        title="사업영역"
-        description="발전소 설비 운영 전반에 필요한 전기·전자 솔루션을 통합적으로 공급합니다."
+        eyebrow={b.banner.eyebrow}
+        title={b.banner.title}
+        description={b.banner.description}
         image="/images/business-banner.jpg"
       />
 
       <Section id="partners">
         <Container>
-          <SectionTitle align="left" eyebrow="Partners" title="주요 파트너사" />
-          <Lead>
-            (주)에스앤케이이엔지는 국내외 발전사를 비롯한 다양한 전력 기업과 긴밀한
-            협력 관계를 유지하며 신뢰를 쌓아왔습니다.
-          </Lead>
+          <SectionTitle align="left" eyebrow={b.partnersEyebrow} title={b.partnersTitle} />
+          <Lead>{b.partnersLead}</Lead>
           <LogoCarousel>
             <Track>
               {logosForScroll.map((l, idx) => (
                 <LogoBox key={`${l.id}-${idx}`}>
-                  <img src={l.src} alt={l.alt} loading="lazy" decoding="async" />
+                  <img src={l.src} alt={l.alt[lang]} loading="lazy" decoding="async" />
                 </LogoBox>
               ))}
             </Track>
@@ -332,14 +307,14 @@ function Business() {
       <Section id="delivery" $variant="muted">
         <div ref={deliveryRef}>
           <Container>
-            <SectionTitle align="left" eyebrow="Deliveries" title="파트너사 납품 현황" />
-            <Lead>당사가 공급한 물량을 파트너사 비율로 환산한 수치입니다 (총 100 기준).</Lead>
+            <SectionTitle align="left" eyebrow={b.deliveryEyebrow} title={b.deliveryTitle} />
+            <Lead>{b.deliveryLead}</Lead>
 
             <DeliveryWrap>
               <BarBg>
                 {DELIVERIES.map((d, idx) => (
                   <Bar
-                    key={d.name}
+                    key={d.key[lang]}
                     $idx={DELIVERIES.length - idx}
                     $w={d.percent}
                     data-width={`${d.percent}%`}
@@ -350,8 +325,8 @@ function Business() {
 
               <BarRows>
                 {DELIVERIES.map((d) => (
-                  <BarRow key={d.name}>
-                    <span>{d.name}</span>
+                  <BarRow key={d.key[lang]}>
+                    <span>{d.key[lang]}</span>
                     <span>{d.percent}%</span>
                   </BarRow>
                 ))}
@@ -363,15 +338,12 @@ function Business() {
 
       <Section id="business-areas">
         <Container>
-          <SectionTitle align="left" eyebrow="Areas" title="(주)에스앤케이이엔지의 사업영역" />
-          <Lead>
-            발전소 핵심 설비부터 제어·계측 솔루션까지 통합적으로 공급하여
-            고객의 안정적 전력 생산을 지원합니다.
-          </Lead>
+          <SectionTitle align="left" eyebrow={b.areasEyebrow} title={b.areasTitle} />
+          <Lead>{b.areasLead}</Lead>
 
-          {BUSINESS_AREAS.map((area, idx) => (
-            <AreaCard key={area.id} id={area.id} $reverse={idx % 2 === 1}>
-              <AreaImage $image={area.image} role="img" aria-label={area.title} />
+          {b.areas.map((area, idx) => (
+            <AreaCard key={AREA_IDS[idx]} id={AREA_IDS[idx]} $reverse={idx % 2 === 1}>
+              <AreaImage $image={AREA_IMAGES[idx]} role="img" aria-label={area.title} />
               <AreaText>
                 <h3>{area.title}</h3>
                 <p>{area.description}</p>

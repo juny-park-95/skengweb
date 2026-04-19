@@ -13,32 +13,13 @@ import {
   Button,
   Reveal,
 } from '../components/common';
+import { useI18n } from '../i18n';
 
-const BUSINESS_CARDS = [
-  {
-    title: '주요 전기 기계·장비',
-    description:
-      '발전소의 안정적인 전력 생산 및 공급에 필수적인 변압기, 차단기, 보호 계전기 등 고품질의 핵심 전기 기계 및 장비를 공급합니다.',
-    image: '/images/power_equipment.jpg',
-  },
-  {
-    title: '제어 시스템 및 전자 부품',
-    description:
-      '발전 설비의 정밀 제어 및 자동화 시스템 구축에 필요한 PLC, 센서, 제어 모듈 등 다양한 고성능 전자 부품 및 시스템 솔루션을 제공합니다.',
-    image: '/images/automation_components.jpg',
-  },
-  {
-    title: '계측기기 및 시험 장비',
-    description:
-      '설비 상태의 정확한 측정, 진단 및 감시를 위한 전압/전류계, 온도/압력계 등 신뢰성 높은 산업용 계측기기와 시험 장비를 공급합니다.',
-    image: '/images/measuring_instruments.jpg',
-  },
-  {
-    title: '관련 기자재 및 부품',
-    description:
-      '케이블, 커넥터, 배관 자재, 예비 부품 등 발전소 운영 및 유지보수에 필요한 다양한 종류의 고품질 관련 기자재와 소모품을 취급합니다.',
-    image: '/images/cables_parts.jpg',
-  },
+const BUSINESS_IMAGES = [
+  '/images/power_equipment.jpg',
+  '/images/automation_components.jpg',
+  '/images/measuring_instruments.jpg',
+  '/images/cables_parts.jpg',
 ];
 
 const bounce = keyframes`
@@ -161,28 +142,35 @@ const ScrollIndicator = styled.div`
 `;
 
 function Home() {
+  const { t } = useI18n();
+  const hero = t.home.hero;
+  const biz = t.home.business;
+
   return (
     <PageWrapper id="main-content">
       <Hero>
         <HeroInner>
-          <HeroEyebrow>Since 1999 · Power Engineering Partner</HeroEyebrow>
-          <HeroTitle>(주)에스앤케이이엔지</HeroTitle>
-          <HeroSubtitle>전기·전자 기자재 전문 공급 파트너</HeroSubtitle>
-          <HeroDescription>
-            (주)에스앤케이이엔지는 두온시스템(주) 발전소 대리점입니다.
-            다년간의 경험과 전문성을 바탕으로 신뢰할 수 있는 공급 파트너가 되겠습니다.
-          </HeroDescription>
+          <HeroEyebrow>{hero.eyebrow}</HeroEyebrow>
+          <HeroTitle>{hero.title}</HeroTitle>
+          <HeroSubtitle>{hero.subtitle}</HeroSubtitle>
+          <HeroDescription>{hero.description}</HeroDescription>
           <HeroActions>
             <Button as="a" href="/business" $variant="inverse" $size="lg">
-              사업영역 보기
+              {hero.primaryCta}
             </Button>
-            <Button as="a" href="/location" $variant="ghost" $size="lg" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}>
-              문의하기
+            <Button
+              as="a"
+              href="/location"
+              $variant="ghost"
+              $size="lg"
+              style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}
+            >
+              {hero.secondaryCta}
             </Button>
           </HeroActions>
         </HeroInner>
         <ScrollIndicator>
-          <span>Scroll</span>
+          <span>{t.common.scroll}</span>
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
           </svg>
@@ -192,15 +180,20 @@ function Home() {
       <Section $variant="muted">
         <Container>
           <SectionTitle
-            eyebrow="Business"
-            title="사업영역"
-            subtitle="발전소의 안정적이고 효율적인 운영에 필요한 전기·전자 핵심 솔루션을 공급합니다."
+            eyebrow={biz.eyebrow}
+            title={biz.title}
+            subtitle={biz.subtitle}
           />
           <Grid $min="260px">
-            {BUSINESS_CARDS.map((card, idx) => (
+            {biz.cards.map((card, idx) => (
               <Reveal key={card.title} delay={`${idx * 100}ms`}>
                 <Card $interactive>
-                  <CardMedia image={card.image} alt={card.title} fit="contain" ratio="4 / 3" />
+                  <CardMedia
+                    image={BUSINESS_IMAGES[idx]}
+                    alt={card.title}
+                    fit="contain"
+                    ratio="4 / 3"
+                  />
                   <CardBody>
                     <CardTitle>{card.title}</CardTitle>
                     <CardDescription>{card.description}</CardDescription>
