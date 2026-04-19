@@ -9,7 +9,7 @@ const Wrapper = styled.section`
   justify-content: center;
   text-align: center;
   padding: clamp(4rem, 10vw, 7rem) clamp(1rem, 5vw, 2.5rem) clamp(3rem, 8vw, 5rem);
-  color: ${({ theme }) => theme.colors.textInverse};
+  color: #ffffff;
   overflow: hidden;
   isolation: isolate;
 

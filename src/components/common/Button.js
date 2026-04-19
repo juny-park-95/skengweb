@@ -35,9 +35,9 @@ const variantStyles = {
     &:hover { background: ${({ theme }) => theme.colors.bgMuted}; }
   `,
   inverse: css`
-    background: ${({ theme }) => theme.colors.textInverse};
-    color: ${({ theme }) => theme.colors.brand};
-    &:hover { background: ${({ theme }) => theme.colors.bgAlt}; }
+    background: #ffffff;
+    color: ${({ theme }) => theme.colors.palette.blue[600]};
+    &:hover { background: ${({ theme }) => theme.colors.palette.neutral[100]}; }
   `,
 };
 

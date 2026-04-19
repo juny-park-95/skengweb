@@ -41,7 +41,7 @@ const Hero = styled.section`
   align-items: center;
   text-align: center;
   padding: clamp(4rem, 12vh, 8rem) clamp(1rem, 5vw, 2.5rem);
-  color: ${({ theme }) => theme.colors.textInverse};
+  color: #ffffff;
   overflow: hidden;
   isolation: isolate;
 
