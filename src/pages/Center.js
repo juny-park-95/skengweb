@@ -1,286 +1,212 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import {
+  PageBanner,
+  Section,
+  SectionTitle,
+  Container,
+  Grid,
+  Card,
+  CardBody,
+  Button,
+} from '../components/common';
 
-const CenterContainer = styled.div`
-  width: 100%;
-  padding-top: 70px; /* To account for fixed header */
-`;
+const SUPPORT = [
+  {
+    icon: '📞',
+    title: '전화 문의',
+    text: '기술 지원 및 제품 문의는 전화로 빠르게 도움을 받으실 수 있습니다. 평일 09:00–18:00 운영.',
+    link: { label: '070-8270-0665', href: 'tel:07082700665' },
+  },
+  {
+    icon: '📧',
+    title: '이메일 문의',
+    text: '상세한 문의사항은 이메일로 보내주시면 영업일 기준 24시간 이내에 답변드립니다.',
+    link: { label: 'sk5559611@hanmail.net', href: 'mailto:sk5559611@hanmail.net' },
+  },
+  {
+    icon: '🔧',
+    title: '기술 지원',
+    text: '제품 설치 및 유지보수 관련 기술 지원이 필요하신 경우 기술지원팀으로 문의해주세요.',
+    link: { label: '기술지원 요청하기', href: '#contact' },
+  },
+];
 
-const PageBanner = styled.div`
-  height: 300px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-              url('/images/center-banner.jpg') no-repeat center;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
+const FAQS = [
+  {
+    q: '제품 구매 절차는 어떻게 되나요?',
+    a: '제품 구매를 원하시면 전화(070-8270-0665) 또는 이메일(sk5559611@hanmail.net)로 문의해 주시기 바랍니다. 담당 영업 담당자가 제품 사양, 가격, 납기 등에 대해 상세히 안내해 드립니다. 대량 구매 및 지속적인 거래를 원하시는 기업의 경우 별도의 계약을 통해 진행됩니다.',
+  },
+  {
+    q: '기술 교육 및 제품 사용 교육을 받을 수 있나요?',
+    a: '네, 제품 구매 고객을 대상으로 제품 사용법 및 유지보수 교육을 제공합니다. 온라인·오프라인 모두 진행하며, 고객사 요청 시 방문 교육도 가능합니다. 교육 일정 및 비용은 고객센터를 통해 문의해 주시기 바랍니다.',
+  },
+  {
+    q: '협력업체로 등록하려면 어떻게 해야 하나요?',
+    a: '협력업체 등록 신청서, 사업자등록증, 회사소개서를 이메일(sk5559611@hanmail.net)로 제출해 주시면 내부 심사를 거쳐 약 2주 내로 결과를 안내드립니다.',
+  },
+  {
+    q: '제품 배송은 어떻게 진행되나요?',
+    a: '주문 확인 및 결제 완료 후 영업일 기준 3–5일 내에 출고됩니다. 대형·특수 제품의 경우 별도의 배송 일정이 적용될 수 있으며, 전문 물류업체를 통해 진행되고 필요 시 설치 서비스가 함께 제공됩니다.',
+  },
+];
+
+const SupportCard = styled(Card)`
+  padding: ${({ theme }) => theme.spacing[8]};
+  text-align: center;
   align-items: center;
-  color: white;
-`;
-
-const BannerTitle = styled.h1`
-  font-size: 3rem;
-  text-align: center;
-`;
-
-const ContentSection = styled.section`
-  padding: 5rem 10%;
-  
-  &:nth-child(odd) {
-    background-color: #f5f5f5;
-  }
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2.2rem;
-  margin-bottom: 2rem;
-  position: relative;
-  padding-bottom: 15px;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background-color: #0066cc;
-  }
-`;
-
-const SupportSection = styled.div`
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-`;
-
-const SupportGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const SupportCard = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-  text-align: center;
-  transition: transform 0.3s;
-  
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  }
 `;
 
 const SupportIcon = styled.div`
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  color: #0066cc;
-`;
-
-const SupportTitle = styled.h3`
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: ${({ theme }) => theme.spacing[4]};
+  width: 64px;
+  height: 64px;
+  border-radius: ${({ theme }) => theme.radii.md};
+  background: ${({ theme }) => theme.colors.brandSoft};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const SupportText = styled.p`
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
+  margin: ${({ theme }) => theme.spacing[2]} 0 ${({ theme }) => theme.spacing[5]};
 `;
 
 const SupportLink = styled.a`
-  display: inline-block;
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: 500;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const TabsContainer = styled.div`
-  margin-top: 2rem;
+  color: ${({ theme }) => theme.colors.brand};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  &:hover { text-decoration: underline; }
 `;
 
 const TabsHeader = styled.div`
-  display: flex;
-  border-bottom: 1px solid #ddd;
+  display: inline-flex;
+  gap: ${({ theme }) => theme.spacing[1]};
+  padding: ${({ theme }) => theme.spacing[1]};
+  background: ${({ theme }) => theme.colors.bgMuted};
+  border-radius: ${({ theme }) => theme.radii.full};
+  margin-bottom: ${({ theme }) => theme.spacing[8]};
 `;
 
-const Tab = styled.div`
-  padding: 1rem 2rem;
-  cursor: pointer;
-  font-weight: 500;
-  color: ${props => props.active ? '#0066cc' : '#666'};
-  border-bottom: ${props => props.active ? '2px solid #0066cc' : 'none'};
-  
-  &:hover {
-    color: #0066cc;
-  }
+const Tab = styled.button`
+  padding: ${({ theme }) => `${theme.spacing[2]} ${theme.spacing[6]}`};
+  border-radius: ${({ theme }) => theme.radii.full};
+  background: ${({ theme, $active }) => ($active ? theme.colors.surface : 'transparent')};
+  color: ${({ theme, $active }) => ($active ? theme.colors.brand : theme.colors.textMuted)};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  box-shadow: ${({ theme, $active }) => ($active ? theme.shadows.sm : 'none')};
+  transition: all ${({ theme }) => theme.transitions.fast};
 `;
 
-const TabContent = styled.div`
-  padding: 2rem 0;
-  display: ${props => props.active ? 'block' : 'none'};
-`;
-
-const FAQItem = styled.div`
-  margin-bottom: 1rem;
-  border: 1px solid #eee;
-  border-radius: 5px;
+const FAQItem = styled.details`
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  background: ${({ theme }) => theme.colors.surface};
   overflow: hidden;
+  margin-bottom: ${({ theme }) => theme.spacing[3]};
+
+  &[open] summary { color: ${({ theme }) => theme.colors.brand}; }
+  &[open] summary::after { transform: rotate(45deg); }
 `;
 
-const FAQQuestion = styled.div`
-  padding: 1.5rem;
-  background-color: white;
-  font-weight: 500;
+const FAQQuestion = styled.summary`
+  list-style: none;
+  padding: ${({ theme }) => theme.spacing[5]};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+  color: ${({ theme }) => theme.colors.text};
+
+  &::-webkit-details-marker { display: none; }
+
   &::after {
     content: '+';
-    font-size: 1.5rem;
-  }
-  
-  &.active {
-    color: #0066cc;
-    
-    &::after {
-      content: '-';
-    }
+    font-size: ${({ theme }) => theme.typography.fontSize.xl};
+    line-height: 1;
+    color: ${({ theme }) => theme.colors.brand};
+    transition: transform ${({ theme }) => theme.transitions.fast};
   }
 `;
 
 const FAQAnswer = styled.div`
-  padding: 0 1.5rem;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s, padding 0.3s;
-  
-  &.active {
-    padding: 1.5rem;
-    max-height: 500px;
-    border-top: 1px solid #eee;
-  }
-  
-  p {
-    margin: 0;
-    line-height: 1.6;
-    color: #666;
-  }
+  padding: 0 ${({ theme }) => theme.spacing[5]} ${({ theme }) => theme.spacing[5]};
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors.textMuted};
+  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
+
+  p { margin: ${({ theme }) => theme.spacing[4]} 0 0; }
 `;
 
 const ContactForm = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  
-  @media (max-width: 768px) {
+  gap: ${({ theme }) => theme.spacing[5]};
+  background: ${({ theme }) => theme.colors.surface};
+  padding: ${({ theme }) => theme.spacing[8]};
+  border-radius: ${({ theme }) => theme.radii.lg};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  box-shadow: ${({ theme }) => theme.shadows.sm};
+
+  ${({ theme }) => theme.media.mdDown} {
     grid-template-columns: 1fr;
+    padding: ${({ theme }) => theme.spacing[6]};
   }
 `;
 
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
-  
-  &.full-width {
-    grid-column: 1 / -1;
-  }
+  gap: ${({ theme }) => theme.spacing[2]};
+
+  &.full-width { grid-column: 1 / -1; }
 `;
 
 const Label = styled.label`
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
-const Input = styled.input`
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  
-  &:focus {
-    border-color: #0066cc;
-    outline: none;
-  }
-`;
-
-const TextArea = styled.textarea`
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  min-height: 150px;
-  resize: vertical;
-  
-  &:focus {
-    border-color: #0066cc;
-    outline: none;
-  }
-`;
-
-const Select = styled.select`
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  
-  &:focus {
-    border-color: #0066cc;
-    outline: none;
-  }
-`;
-
-const SubmitButton = styled.button`
-  grid-column: 1 / -1;
-  padding: 1rem;
-  background-color: #0066cc;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  
-  &:hover {
-    background-color: #0055aa;
-  }
-`;
-
-const ContactInfo = styled.div`
-  margin-top: 3rem;
-  padding: 2rem;
-  background-color: white;
+const fieldStyles = ({ theme }) => `
+  padding: 0.75rem 0.9rem;
+  border: 1px solid ${theme.colors.border};
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  font-family: inherit;
+  color: ${theme.colors.text};
+  background: ${theme.colors.surface};
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &::placeholder {
+    color: ${theme.colors.textSubtle};
+  }
+
+  &:focus {
+    outline: none;
+    border-color: ${theme.colors.brand};
+    box-shadow: ${theme.shadows.focus};
+  }
 `;
 
-const InfoGrid = styled.div`
+const Input = styled.input`${fieldStyles}`;
+const TextArea = styled.textarea`${fieldStyles} min-height: 160px; resize: vertical;`;
+const Select = styled.select`${fieldStyles}`;
+
+const ContactInfoGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  
-  @media (max-width: 768px) {
+  gap: ${({ theme }) => theme.spacing[6]};
+  margin-top: ${({ theme }) => theme.spacing[10]};
+  padding: ${({ theme }) => theme.spacing[8]};
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radii.lg};
+
+  ${({ theme }) => theme.media.mdDown} {
     grid-template-columns: 1fr;
   }
 `;
@@ -290,249 +216,158 @@ const InfoItem = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-`;
+  gap: ${({ theme }) => theme.spacing[2]};
 
-const InfoIcon = styled.div`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #0066cc;
-`;
+  .icon {
+    font-size: 2rem;
+    width: 52px;
+    height: 52px;
+    border-radius: ${({ theme }) => theme.radii.md};
+    background: ${({ theme }) => theme.colors.brandSoft};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-const InfoTitle = styled.h4`
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: #333;
-`;
+  h4 {
+    font-size: ${({ theme }) => theme.typography.fontSize.md};
+    color: ${({ theme }) => theme.colors.text};
+  }
 
-const InfoText = styled.p`
-  color: #666;
-  line-height: 1.6;
+  p {
+    color: ${({ theme }) => theme.colors.textMuted};
+    margin: 0;
+  }
 `;
 
 function Center() {
   const [activeTab, setActiveTab] = useState('faq');
-  const [activeFaq, setActiveFaq] = useState(0);
-  
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
-  
-  const toggleFaq = (index) => {
-    setActiveFaq(activeFaq === index ? null : index);
-  };
-  
+
   return (
-    <CenterContainer>
-      <PageBanner>
-        <BannerTitle>고객센터</BannerTitle>
-      </PageBanner>
-      
-      <ContentSection id="support">
-        <SectionTitle>고객지원</SectionTitle>
-        <SupportSection>
-          <SupportGrid>
-            <SupportCard>
-              <SupportIcon>📞</SupportIcon>
-              <SupportTitle>전화 문의</SupportTitle>
-              <SupportText>
-                기술 지원 및 제품 문의는 전화로 빠르게 도움을 받으실 수 있습니다.
-                평일 09:00-18:00 운영
-              </SupportText>
-              <SupportLink href="tel:07082700665">070-8270-0665</SupportLink>
-            </SupportCard>
-            
-            <SupportCard>
-              <SupportIcon>📧</SupportIcon>
-              <SupportTitle>이메일 문의</SupportTitle>
-              <SupportText>
-                상세한 문의사항은 이메일로 보내주시면 
-                영업일 기준 24시간 이내에 답변드립니다.
-              </SupportText>
-              <SupportLink href="mailto:sk5559611@hanmail.net">sk5559611@hanmail.net</SupportLink>
-            </SupportCard>
-            
-            <SupportCard>
-              <SupportIcon>🔧</SupportIcon>
-              <SupportTitle>기술 지원</SupportTitle>
-              <SupportText>
-                제품 설치 및 유지보수 관련 기술 지원이 필요하신 경우
-                기술지원팀으로 문의해주세요.
-              </SupportText>
-              <SupportLink href="#technical-support">기술지원 요청하기</SupportLink>
-            </SupportCard>
-          </SupportGrid>
-        </SupportSection>
-      </ContentSection>
-      
-      <ContentSection id="faq">
-        <SectionTitle>자주 묻는 질문</SectionTitle>
-        <TabsContainer>
-          <TabsHeader>
-            <Tab 
-              active={activeTab === 'faq'} 
-              onClick={() => handleTabClick('faq')}
-            >
-              FAQ
-            </Tab>
-            <Tab 
-              active={activeTab === 'contact'} 
-              onClick={() => handleTabClick('contact')}
-            >
-              문의하기
-            </Tab>
-          </TabsHeader>
-          
-          <TabContent active={activeTab === 'faq'}>
-            <FAQItem>
-              <FAQQuestion 
-                className={activeFaq === 0 ? 'active' : ''} 
-                onClick={() => toggleFaq(0)}
-              >
-                제품 구매 절차는 어떻게 되나요?
-              </FAQQuestion>
-              <FAQAnswer className={activeFaq === 0 ? 'active' : ''}>
-                <p>
-                  제품 구매를 원하시면 전화(070-8270-0665) 또는 이메일(sk5559611@hanmail.net)로 문의해 주시기 바랍니다.
-                  담당 영업 담당자가 제품 사양, 가격, 납기 등에 대해 상세히 안내해 드립니다.
-                  대량 구매 및 지속적인 거래를 원하시는 기업의 경우 별도의 계약을 통해 진행됩니다.
-                </p>
-              </FAQAnswer>
-            </FAQItem>
-            
-            <FAQItem>
-              <FAQQuestion 
-                className={activeFaq === 2 ? 'active' : ''} 
-                onClick={() => toggleFaq(2)}
-              >
-                기술 교육 및 제품 사용 교육을 받을 수 있나요?
-              </FAQQuestion>
-              <FAQAnswer className={activeFaq === 2 ? 'active' : ''}>
-                <p>
-                  네, (주)에스앤케이이엔지는 제품 구매 고객을 대상으로 제품 사용법 및 유지보수 교육을 제공하고 있습니다.
-                  교육은 온라인 또는 오프라인으로 진행되며, 고객사 요청에 따라 방문 교육도 가능합니다.
-                  교육 일정 및 비용은 담당 영업사원 또는 고객센터를 통해 문의해 주시기 바랍니다.
-                </p>
-              </FAQAnswer>
-            </FAQItem>
-            
-            <FAQItem>
-              <FAQQuestion 
-                className={activeFaq === 3 ? 'active' : ''} 
-                onClick={() => toggleFaq(3)}
-              >
-                (주)에스앤케이이엔지에 협력업체로 등록하려면 어떻게 해야 하나요?
-              </FAQQuestion>
-              <FAQAnswer className={activeFaq === 3 ? 'active' : ''}>
-                <p>
-                  (주)에스앤케이이엔지 협력업체 등록을 원하시면 이메일(sk5559611@hanmail.net)로 협력업체 등록 신청서와 
-                  사업자등록증, 회사소개서를 제출해 주시기 바랍니다. 내부 심사를 거쳐 등록 여부가 결정되며,
-                  약 2주 내로 결과를 알려드립니다. 자세한 절차는 고객센터로 문의해 주시기 바랍니다.
-                </p>
-              </FAQAnswer>
-            </FAQItem>
-            
-            <FAQItem>
-              <FAQQuestion 
-                className={activeFaq === 4 ? 'active' : ''} 
-                onClick={() => toggleFaq(4)}
-              >
-                제품 배송은 어떻게 진행되나요?
-              </FAQQuestion>
-              <FAQAnswer className={activeFaq === 4 ? 'active' : ''}>
-                <p>
-                  (주)에스앤케이이엔지의 제품은 주문 확인 및 결제 완료 후 영업일 기준 3-5일 내에 출고됩니다.
-                  대형 제품 및 특수 제품의 경우 별도의 배송 일정이 적용될 수 있습니다.
-                  배송은 전문 물류업체를 통해 진행되며, 제품 특성에 따라 설치 서비스가 함께 제공될 수 있습니다.
-                  배송 관련 문의는 고객센터로 연락해 주시기 바랍니다.
-                </p>
-              </FAQAnswer>
-            </FAQItem>
-          </TabContent>
-          
-          <TabContent id="contact" active={activeTab === 'contact'}>
-            <ContactForm>
-              <FormGroup>
-                <Label>이름 *</Label>
-                <Input type="text" placeholder="이름을 입력하세요" required />
-              </FormGroup>
-              
-              <FormGroup>
-                <Label>이메일 *</Label>
-                <Input type="email" placeholder="이메일을 입력하세요" required />
-              </FormGroup>
-              
-              <FormGroup>
-                <Label>전화번호 *</Label>
-                <Input type="tel" placeholder="전화번호를 입력하세요" required />
-              </FormGroup>
-              
-              <FormGroup>
-                <Label>회사명</Label>
-                <Input type="text" placeholder="회사명을 입력하세요" />
-              </FormGroup>
-              
-              <FormGroup>
-                <Label>문의 유형 *</Label>
-                <Select required>
-                  <option value="">문의 유형을 선택하세요</option>
-                  <option value="product">제품 문의</option>
-                  <option value="technical">기술 지원</option>
-                  <option value="warranty">보증/A/S</option>
-                  <option value="partnership">협력업체 등록</option>
-                  <option value="order">주문/배송</option>
-                  <option value="other">기타</option>
-                </Select>
-              </FormGroup>
-              
-              <FormGroup>
-                <Label>제품 모델</Label>
-                <Input type="text" placeholder="문의하시는 제품 모델명" />
-              </FormGroup>
-              
-              <FormGroup className="full-width">
-                <Label>제목 *</Label>
-                <Input type="text" placeholder="제목을 입력하세요" required />
-              </FormGroup>
-              
-              <FormGroup className="full-width">
-                <Label>문의 내용 *</Label>
-                <TextArea placeholder="문의 내용을 상세히 기재해 주세요" required />
-              </FormGroup>
-              
-              <FormGroup className="full-width">
-                <Label>첨부파일</Label>
-                <Input type="file" />
-                <small style={{ marginTop: '0.5rem', color: '#888' }}>최대 10MB (지원 형식: jpg, png, pdf, doc, docx)</small>
-              </FormGroup>
-              
-              <SubmitButton type="submit">문의하기</SubmitButton>
-            </ContactForm>
-            
-            <ContactInfo>
-              <InfoGrid>
+    <main id="main-content">
+      <PageBanner
+        eyebrow="Support"
+        title="고객센터"
+        description="제품 문의, 기술 지원, 협력업체 등록 등 다양한 문의를 받고 있습니다."
+        image="/images/center-banner.jpg"
+      />
+
+      <Section id="support">
+        <Container>
+          <SectionTitle eyebrow="Support" title="고객지원" />
+          <Grid $min="280px">
+            {SUPPORT.map((item) => (
+              <SupportCard key={item.title}>
+                <CardBody style={{ alignItems: 'center' }}>
+                  <SupportIcon role="img" aria-label={item.title}>{item.icon}</SupportIcon>
+                  <h3>{item.title}</h3>
+                  <SupportText>{item.text}</SupportText>
+                  <SupportLink href={item.link.href}>{item.link.label}</SupportLink>
+                </CardBody>
+              </SupportCard>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
+
+      <Section id="faq" $variant="muted">
+        <Container>
+          <SectionTitle eyebrow="Help" title="자주 묻는 질문 / 문의하기" />
+          <div style={{ textAlign: 'center' }}>
+            <TabsHeader role="tablist">
+              <Tab role="tab" $active={activeTab === 'faq'}     onClick={() => setActiveTab('faq')}>FAQ</Tab>
+              <Tab role="tab" $active={activeTab === 'contact'} onClick={() => setActiveTab('contact')}>문의하기</Tab>
+            </TabsHeader>
+          </div>
+
+          {activeTab === 'faq' && (
+            <div>
+              {FAQS.map((item) => (
+                <FAQItem key={item.q}>
+                  <FAQQuestion>{item.q}</FAQQuestion>
+                  <FAQAnswer>
+                    <p>{item.a}</p>
+                  </FAQAnswer>
+                </FAQItem>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'contact' && (
+            <div id="contact">
+              <ContactForm onSubmit={(e) => e.preventDefault()}>
+                <FormGroup>
+                  <Label htmlFor="name">이름 *</Label>
+                  <Input id="name" type="text" placeholder="이름을 입력하세요" required />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="email">이메일 *</Label>
+                  <Input id="email" type="email" placeholder="이메일을 입력하세요" required />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="phone">전화번호 *</Label>
+                  <Input id="phone" type="tel" placeholder="전화번호를 입력하세요" required />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="company">회사명</Label>
+                  <Input id="company" type="text" placeholder="회사명을 입력하세요" />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="type">문의 유형 *</Label>
+                  <Select id="type" required defaultValue="">
+                    <option value="" disabled>문의 유형을 선택하세요</option>
+                    <option value="product">제품 문의</option>
+                    <option value="technical">기술 지원</option>
+                    <option value="warranty">보증/A/S</option>
+                    <option value="partnership">협력업체 등록</option>
+                    <option value="order">주문/배송</option>
+                    <option value="other">기타</option>
+                  </Select>
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="model">제품 모델</Label>
+                  <Input id="model" type="text" placeholder="문의하시는 제품 모델명" />
+                </FormGroup>
+                <FormGroup className="full-width">
+                  <Label htmlFor="subject">제목 *</Label>
+                  <Input id="subject" type="text" placeholder="제목을 입력하세요" required />
+                </FormGroup>
+                <FormGroup className="full-width">
+                  <Label htmlFor="message">문의 내용 *</Label>
+                  <TextArea id="message" placeholder="문의 내용을 상세히 기재해 주세요" required />
+                </FormGroup>
+                <FormGroup className="full-width">
+                  <Label htmlFor="file">첨부파일</Label>
+                  <Input id="file" type="file" />
+                  <small style={{ color: '#94a3b8' }}>최대 10MB (jpg, png, pdf, doc, docx)</small>
+                </FormGroup>
+                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button type="submit" $size="lg">문의하기</Button>
+                </div>
+              </ContactForm>
+
+              <ContactInfoGrid>
                 <InfoItem>
-                  <InfoIcon>📍</InfoIcon>
-                  <InfoTitle>주소</InfoTitle>
-                  <InfoText>경기 안산시 단원구 신촌5길 28</InfoText>
+                  <span className="icon" role="img" aria-label="주소">📍</span>
+                  <h4>주소</h4>
+                  <p>경기 안산시 단원구 신촌5길 28</p>
                 </InfoItem>
-                
                 <InfoItem>
-                  <InfoIcon>📞</InfoIcon>
-                  <InfoTitle>전화</InfoTitle>
-                  <InfoText>070-8270-0665</InfoText>
+                  <span className="icon" role="img" aria-label="전화">📞</span>
+                  <h4>전화</h4>
+                  <p>070-8270-0665</p>
                 </InfoItem>
-                
                 <InfoItem>
-                  <InfoIcon>📧</InfoIcon>
-                  <InfoTitle>이메일</InfoTitle>
-                  <InfoText>sk5559611@hanmail.net</InfoText>
+                  <span className="icon" role="img" aria-label="이메일">📧</span>
+                  <h4>이메일</h4>
+                  <p>sk5559611@hanmail.net</p>
                 </InfoItem>
-              </InfoGrid>
-            </ContactInfo>
-          </TabContent>
-        </TabsContainer>
-      </ContentSection>
-    </CenterContainer>
+              </ContactInfoGrid>
+            </div>
+          )}
+        </Container>
+      </Section>
+    </main>
   );
 }
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme, GlobalStyle } from './theme';
+import useDarkMode from './hooks/useDarkMode';
 import './App.css';
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -29,37 +31,54 @@ function ScrollToTop() {
   return null;
 }
 
-// ScrollToTopButton component
+const SkipLink = styled.a`
+  position: absolute;
+  top: -999px;
+  left: 0;
+  z-index: ${({ theme }) => theme.zIndex.toast + 1};
+  padding: ${({ theme }) => `${theme.spacing[3]} ${theme.spacing[5]}`};
+  background: ${({ theme }) => theme.colors.brand};
+  color: ${({ theme }) => theme.colors.textInverse};
+  border-radius: 0 0 ${({ theme }) => theme.radii.md} 0;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+
+  &:focus {
+    top: 0;
+    outline: 2px solid ${({ theme }) => theme.colors.palette.blue[200]};
+    outline-offset: 2px;
+  }
+`;
+
 const ScrollToTopButton = styled.button`
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #0066cc;
-  color: white;
-  border: none;
-  cursor: pointer;
+  bottom: ${({ theme }) => theme.spacing[8]};
+  right: ${({ theme }) => theme.spacing[8]};
+  width: 48px;
+  height: 48px;
+  border-radius: ${({ theme }) => theme.radii.full};
+  background-color: ${({ theme }) => theme.colors.brand};
+  color: ${({ theme }) => theme.colors.textInverse};
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: ${props => props.visible ? '1' : '0'};
-  visibility: ${props => props.visible ? 'visible' : 'hidden'};
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  
+  opacity: ${props => (props.visible ? 1 : 0)};
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  transform: translateY(${props => (props.visible ? '0' : '8px')});
+  transition: all ${({ theme }) => theme.transitions.base};
+  box-shadow: ${({ theme }) => theme.shadows.lg};
+  z-index: ${({ theme }) => theme.zIndex.toast};
+
   &:hover {
-    background-color: #0055aa;
+    background-color: ${({ theme }) => theme.colors.brandHover};
     transform: translateY(-3px);
+    box-shadow: ${({ theme }) => theme.shadows.xl};
   }
-  
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-    bottom: 20px;
-    right: 20px;
+
+  ${({ theme }) => theme.media.mdDown} {
+    width: 42px;
+    height: 42px;
+    bottom: ${({ theme }) => theme.spacing[5]};
+    right: ${({ theme }) => theme.spacing[5]};
   }
 `;
 
@@ -72,6 +91,7 @@ const ArrowUpIcon = () => (
 
 function App() {
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const { mode, toggle, isDark } = useDarkMode();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -97,58 +117,62 @@ function App() {
   };
   
   return (
-    <Router>
-      <div className="App">
-        <ScrollToTop />
-        <ScrollToHash />
-        <Header />
-        <Routes>
-          <Route path="/" element={
-            <PageTransition>
-              <Home />
-            </PageTransition>
-          } />
-          <Route path="/about" element={
-            <PageTransition>
-              <About />
-            </PageTransition>
-          } />
-          <Route path="/business" element={
-            <PageTransition>
-              <Business />
-            </PageTransition>
-          } />
-          <Route path="/projects" element={
-            <PageTransition>
-              <Projects />
-            </PageTransition>
-          } />
-          <Route path="/hr" element={
-            <PageTransition>
-              <HumanResources />
-            </PageTransition>
-          } />
-          <Route path="/center" element={
-            <PageTransition>
-              <Center />
-            </PageTransition>
-          } />
-          <Route path="/location" element={
-            <PageTransition>
-              <Location />
-            </PageTransition>
-          } />
-        </Routes>
-        <Footer />
-        <ScrollToTopButton 
-          visible={showScrollButton} 
-          onClick={scrollToTop}
-          aria-label="맨 위로 이동"
-        >
-          <ArrowUpIcon />
-        </ScrollToTopButton>
-      </div>
-    </Router>
+    <ThemeProvider theme={mode === 'dark' ? darkTheme : lightTheme}>
+      <GlobalStyle />
+      <Router>
+        <div className="App">
+          <SkipLink href="#main-content">본문으로 건너뛰기</SkipLink>
+          <ScrollToTop />
+          <ScrollToHash />
+          <Header isDark={isDark} onToggleTheme={toggle} />
+          <Routes>
+            <Route path="/" element={
+              <PageTransition>
+                <Home />
+              </PageTransition>
+            } />
+            <Route path="/about" element={
+              <PageTransition>
+                <About />
+              </PageTransition>
+            } />
+            <Route path="/business" element={
+              <PageTransition>
+                <Business />
+              </PageTransition>
+            } />
+            <Route path="/projects" element={
+              <PageTransition>
+                <Projects />
+              </PageTransition>
+            } />
+            <Route path="/hr" element={
+              <PageTransition>
+                <HumanResources />
+              </PageTransition>
+            } />
+            <Route path="/center" element={
+              <PageTransition>
+                <Center />
+              </PageTransition>
+            } />
+            <Route path="/location" element={
+              <PageTransition>
+                <Location />
+              </PageTransition>
+            } />
+          </Routes>
+          <Footer />
+          <ScrollToTopButton
+            visible={showScrollButton}
+            onClick={scrollToTop}
+            aria-label="맨 위로 이동"
+          >
+            <ArrowUpIcon />
+          </ScrollToTopButton>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 
