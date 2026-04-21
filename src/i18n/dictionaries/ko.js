@@ -29,7 +29,7 @@ const ko = {
   footer: {
     address: '경기도 안산시 단원구 신촌5길 28',
     tel: 'TEL: 070-8270-0665',
-    fax: 'FAX: 031-421-0551',
+    fax: 'FAX: 031-502-0220',
     email: 'sk5559611@hanmail.net',
     hours: '평일 09:00 – 18:00 (점심 12:00 – 13:00)',
     description:

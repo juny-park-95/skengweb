@@ -30,7 +30,7 @@ const en = {
   footer: {
     address: '28, Sinchon 5-gil, Danwon-gu, Ansan-si, Gyeonggi-do, Korea',
     tel: 'TEL: +82-70-8270-0665',
-    fax: 'FAX: +82-31-421-0551',
+    fax: 'FAX: +82-31-502-0220',
     email: 'sk5559611@hanmail.net',
     hours: 'Mon–Fri 09:00 – 18:00 (Lunch 12:00 – 13:00)',
     description:
