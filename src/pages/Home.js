@@ -44,14 +44,7 @@ const Hero = styled.section`
   color: #ffffff;
   overflow: hidden;
   isolation: isolate;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url('/images/hero-background.jpg') center/cover no-repeat;
-    z-index: -2;
-  }
+  background-color: #001a3d;
 
   &::after {
     content: '';
@@ -65,6 +58,15 @@ const Hero = styled.section`
     );
     z-index: -1;
   }
+`;
+
+const HeroVideo = styled.video`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
 `;
 
 const HeroInner = styled.div`
@@ -149,6 +151,16 @@ function Home() {
   return (
     <PageWrapper id="main-content">
       <Hero>
+        <HeroVideo
+          src="/hero_video.mp4"
+          poster="/images/hero-background.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        />
         <HeroInner>
           <HeroEyebrow>{hero.eyebrow}</HeroEyebrow>
           <HeroTitle>{hero.title}</HeroTitle>
